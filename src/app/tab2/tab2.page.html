@@ -1,62 +1,71 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Trainer
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Trainer
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <main>
+    <main>
+        <ion-grid>
+            
+            <ion-row id="trainerSection">
+                <ion-col>
+                    <div>
+                        <img src="assets/surprisedPika.jpg" alt="Surprised Pika">
+                    </div>
+                </ion-col>
+                <div id="trainerDesc">
+                    <ion-row>
+                        <ion-col>Trainer</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col size="3">&</ion-col>
+                        <ion-col>Larvitar</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col push="3">Moltres</ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col push="3">Pikachu</ion-col>
+                    </ion-row>
+                </div>
+            </ion-row>
 
-    <div id="trainerSection">
-      <img src="assets/surprisedPika.jpg" alt="Surprised Pika">
-    </div>
-    <ion-grid>
-    <div id="achievementSection">
-      <div id="level">
-        <div id="lvNum">40</div>
-        <div id="lvLabel">Level</div>
-      </div>
-      <div id="badges">
-        <div class="badge">Badge One</div>
-        <div class="badge">Badge Two</div>
-        <div class="badge">Badge Three</div>
-        <div class="badge">Badge Four</div>
-        <div class="badge">Badge Five</div>
-      </div>
-    </div>
-    
-    
-      <ion-row align-items-end justify-content-end>
-        <ion-col text-center size="4">
-          <ion-icon padding-horizontal	 size="large" name="journal"></ion-icon>
-          <ion-label size="large">Pokedex</ion-label>
-        </ion-col>
-        <ion-col text-center size="4">
-          <ion-icon padding-horizontal	 size="large" name="logo-octocat"></ion-icon>
-          <ion-label size="large">Teams</ion-label>
-        </ion-col>
-        <ion-col text-center size="4">
-            <ion-icon padding-horizontal	 size="large" name="git-compare"></ion-icon>
-            <ion-label size="large">Trades</ion-label>
-          </ion-col>
-      </ion-row>
-    </ion-grid>
+            <ion-row id="achievementSection">
+                <ion-col>40<br>LEVEL</ion-col>
+                <ion-col>
+                        <ion-icon size="large" name="bicycle"></ion-icon>
+                </ion-col>
+                <ion-col>
+                        <ion-icon size="large" name="school"></ion-icon>
+                </ion-col>
+                <ion-col>
+                        <ion-icon size="large" name="logo-yen"></ion-icon>
+                </ion-col>
+                <ion-col>
+                        <ion-icon size="large" name="musical-note"></ion-icon>
+                </ion-col>
+                <ion-col>
+                        <ion-icon size="large" name="contacts"></ion-icon>
+                </ion-col>
+            </ion-row>
 
-    <!-- <div id="trainerNav">
-      <div class="navButton">
-        <div class="navIcon"></div>
-        <div class="navText">Pokedex</div>
-      </div>
-      <div class="navButton">
-        <div class="navIcon"></div>
-        <div class="navText">Teams</div>
-      </div>
-      <div class="navButton">
-        <div class="navIcon"></div>
-        <div class="navText">Trades</div>
-      </div>
-    </div> -->
-  </main>
+            <ion-row id="trainerNav" align-items-end justify-content-end>
+                <ion-col text-center size="4">
+                    <ion-icon padding-horizontal size="large" name="journal"></ion-icon>
+                    <ion-label size="large">Pokedex</ion-label>
+                </ion-col>
+                <ion-col text-center size="4">
+                    <ion-icon padding-horizontal size="large" name="logo-octocat"></ion-icon>
+                    <ion-label size="large">Teams</ion-label>
+                </ion-col>
+                <ion-col text-center size="4">
+                    <ion-icon padding-horizontal size="large" name="git-compare"></ion-icon>
+                    <ion-label size="large">Trades</ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </main>
 </ion-content>
