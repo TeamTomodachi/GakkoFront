@@ -1,5 +1,5 @@
 ion-content {
-    // --background: linear-gradient(#1fc8db 51%, #2cb5e8 75%);
+    --background: linear-gradient(#1fc8db 51%, #2cb5e8 75%);
 }
 
 main {
@@ -49,42 +49,46 @@ ion-grid {
             #teamBg {
                 height: 100%;
                 width: 100%;
-                background-image: url("https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/static_assets/png/AvatarBackdropMystic.png");
-                background-position: top right;
+                background-image: url("../../assets/bg_mfade.png");
+                background-position: center;
                 background-repeat: no-repeat;
-                opacity: 0.7;
             }
         }
     }
 
     // Hard-Coded Assets until we can figure something dynamic with this (need DB)
-    .pkmn, #trainerModel {
+    .pkmn {
         position: absolute;
-        bottom: 0;
+        bottom: -6%;
         
-        // border: 1px solid black;
+        border: 1px solid black;
     }
 
     #pkmn1 {
-        left: 1%;
+        left: -17%;
         z-index: 1;
     }
 
     #pkmn2 {
         left: 5%;
-        // bottom: 25%;
+        bottom: 22%;
         z-index: 0;
     }
 
     #pkmn3 {
-        left: 8%;
+        left: 12%;
         z-index: 2;
     }
 
     #trainerModel {
-        right: 5%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        height: 75%;
 
         z-index: 4;
+        border: 2px solid red;
     }
     // End Asset
 
@@ -99,6 +103,7 @@ ion-grid {
         width: 30%;
 
         border: 1px solid purple;
+        color: white;
 
         z-index: 2;
     }
