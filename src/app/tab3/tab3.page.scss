@@ -1,3 +1,14 @@
 .raidThumb {
     border-radius: 100%;
 }
+
+//to keep the map at a set aspect ratio - appears to help loading map tiles
+#mapContainer{
+	position: relative;
+	width: 100%;
+}
+#mapContainer:before{
+	content: "";
+	display: block;
+	padding-top: 75%;
+}

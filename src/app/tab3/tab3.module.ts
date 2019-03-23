@@ -5,6 +5,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab3Page } from './tab3.page';
 
+import { MapComponent } from '../map/map.component';
+
+
+
 @NgModule({
   imports: [
     IonicModule,
@@ -12,6 +16,10 @@ import { Tab3Page } from './tab3.page';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }])
   ],
-  declarations: [Tab3Page]
+  declarations: [Tab3Page, MapComponent],
+  exports: [MapComponent]
 })
-export class Tab3PageModule {}
+export class Tab3PageModule {
+  
+
+}
