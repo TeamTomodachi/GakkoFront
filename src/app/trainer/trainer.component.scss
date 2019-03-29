@@ -7,7 +7,6 @@ ion-grid {
 #trainerSection {
     position: relative;
     flex-grow: 1;
-    border: 1px solid salmon;
     height: 100%;
     width: 100%;
 
@@ -24,7 +23,7 @@ ion-grid {
             #teamBg {
                 height: 100%;
                 width: 100%;
-                background-image: url("../../assets/bg_mfade.png");
+                background-image: url("https://raw.githubusercontent.com/TeamTomodachi/GakkoFront/master/src/assets/bg_msfade.png");
                 background-position: center;
                 background-repeat: no-repeat;
             }
@@ -54,14 +53,11 @@ ion-grid {
     }
 
     #trainerModel {
+        width: 50%;
         position: absolute;
-        bottom: 0;
         right: 0;
-
-        height: 75%;
-
+        bottom: 0;      
         z-index: 4;
-        border: 2px solid red;
     }
     // End Asset
 
@@ -69,14 +65,15 @@ ion-grid {
     #trainerDesc {
         position: absolute;
         left: 5%;
-        top: 30%;
+        top: 10%;
 
         // display: none;
 
         width: 30%;
 
-        border: 1px solid purple;
         color: white;
+        font-family: 'Lato', sans-serif;
+        font-weight: bold;
 
         z-index: 2;
     }
