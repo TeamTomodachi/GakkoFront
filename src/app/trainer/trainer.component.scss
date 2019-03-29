@@ -88,14 +88,13 @@ ion-grid {
     height: auto;
 
     text-align: center;
-
-    border-bottom: 1px solid rgba(12, 61, 90, 0.493);
 }
 
 #trainerNav {
     position: relative;
     bottom: 0;
     height: auto;
+    padding-top: 3%;
 
     ion-col {
         display: flex;
