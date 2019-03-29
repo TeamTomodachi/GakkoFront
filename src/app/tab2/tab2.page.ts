@@ -48,7 +48,11 @@ function fetchPKMNImage({data}) {
     pkm2.setAttribute("src", imageLinkP1 + data.pkmn2.number + imageLinkP2);
     pkm3.setAttribute("src", imageLinkP1 + data.pkmn3.number + imageLinkP2);
 
-    console.log(data.pkmn1.number);
+    document.getElementById("pkmn1Text").innerText = data.pkmn1.name;
+    document.getElementById("pkmn2Text").innerText = data.pkmn2.name;
+    document.getElementById("pkmn3Text").innerText = data.pkmn3.name;
+
+    // console.log(data.pkmn1.number);
 }
 
 const arrayOfPokes = ["Abra", "Zapdos", "Squirtle"]
