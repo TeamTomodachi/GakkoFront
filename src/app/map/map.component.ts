@@ -15,13 +15,11 @@ export class MapComponent implements OnInit {
     @Input()
     public lng: any;
     @Input()
+    public markers: any;
+    @Input()
     public middle: (center: string) => void;
-    public constructor() { }
-    public ngOnInit() { }
-    public ngAfterViewInit() {
-        L.Icon.Default.imagePath = ''
-
-        var markers = [
+    public ngOnInit() {
+        this.markers = [
             {
               "name": "Raid 1",
               "address": "",
@@ -41,6 +39,9 @@ export class MapComponent implements OnInit {
               "lng": -75.7500547
             }
          ];
+     }
+    public ngAfterViewInit() {
+        L.Icon.Default.imagePath = ''
 
         var map = L.map( 'map', {
             center: [45.2748993, -75.743832],
@@ -52,15 +53,19 @@ export class MapComponent implements OnInit {
             subdomains: ['a','b','c']
         }).addTo( map );
 
-        for ( var i=0; i < markers.length; ++i ) 
+        for ( var i=0; i < this.markers.length; ++i ) 
         {
-            L.marker( [markers[i].lat, markers[i].lng] )
-                .bindPopup( '<p>' + markers[i].name + '</p>' )
+            L.marker( [this.markers[i].lat, this.markers[i].lng] )
+                .bindPopup( '<p>' + this.markers[i].name + '</p>' )
                 .addTo( map );
         }
 
         map.on('dragend', () => {
            this.middle(map.getCenter());
         });
+    }
+
+    public addMarker(lat, lng) {
+        console.log(lat, lng);
     }
 }
