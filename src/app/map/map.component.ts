@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { leaflet, icon, Marker } from 'leaflet';
 import '../../../node_modules/leaflet/dist/leaflet.js'
-//import { markers } from './markers.json';
 declare var L: any;
 @Component({
     selector: 'map',
@@ -15,6 +14,8 @@ export class MapComponent implements OnInit {
     public lat: any;
     @Input()
     public lng: any;
+    @Input()
+    public middle: (center: string) => void;
     public constructor() { }
     public ngOnInit() { }
     public ngAfterViewInit() {
@@ -57,5 +58,9 @@ export class MapComponent implements OnInit {
                 .bindPopup( '<p>' + markers[i].name + '</p>' )
                 .addTo( map );
         }
+
+        map.on('dragend', () => {
+           this.middle(map.getCenter());
+        });
     }
 }

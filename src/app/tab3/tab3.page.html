@@ -7,7 +7,7 @@
 </ion-header>
 
 <ion-content>
-  
+  <h3>middle: {{middle}}</h3>
   <h2 text-center>List of available raids</h2>
   <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button>
@@ -18,7 +18,7 @@
     <ion-row class="mapRow">
       <ion-col size="12">
         <div id="mapContainer">
-          <map></map>
+          <map [middle]="setstuff"></map>
         </div>
       </ion-col>
 

@@ -20,6 +20,5 @@ import { MapComponent } from '../map/map.component';
   exports: [MapComponent]
 })
 export class Tab3PageModule {
-  
 
 }
