@@ -2,17 +2,6 @@ ion-grid {
     display: flex;
     flex-direction: column;
     height: 100%;
-    // border: 1px solid rgb(245, 0, 204);
-
-    ion-col {
-        // border: 1px solid yellow;
-    }
-}
-
-#trainerSection,
-#achievementSection,
-#trainerNav {
-    // border: 1px solid #000;
 }
 
 #trainerSection {
@@ -46,8 +35,6 @@ ion-grid {
     .pkmn {
         position: absolute;
         bottom: -6%;
-        
-        border: 1px solid black;
     }
 
     #pkmn1 {
@@ -101,6 +88,8 @@ ion-grid {
     height: auto;
 
     text-align: center;
+
+    border-bottom: 1px solid rgba(12, 61, 90, 0.493);
 }
 
 #trainerNav {
