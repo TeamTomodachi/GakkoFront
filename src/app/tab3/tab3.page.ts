@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MapComponent } from '../map/map.component';
 
 @Component({
@@ -7,6 +7,8 @@ import { MapComponent } from '../map/map.component';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+  @ViewChild(MapComponent)
+  public mapElement: MapComponent;
   @Input()
   public marker: (center: string) => void;
   @Input() 
@@ -14,15 +16,14 @@ export class Tab3Page {
 
   middle = 'Map center';
   constructor() {
-    this.setstuff = this.setstuff.bind(this);
-    this.addMarker = this.addMarker.bind(this);
-  }
-  setstuff(a) {
-    this.middle=a;
+    this.setLatLng = this.setLatLng.bind(this);
   }
 
-  addMarker(lat, lng) {
-    //console.log(lat, lng);
-    this.map.addMarker(lat, lng);
+  setLatLng(center) {
+    this.middle=center;
+  }
+
+  addMarker() {
+    this.mapElement.addMarker(this.middle, this.mapElement.map);
   }
 }

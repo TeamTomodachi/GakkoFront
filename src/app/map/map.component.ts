@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { Events } from '@ionic/angular';
 import { leaflet, icon, Marker } from 'leaflet';
 import '../../../node_modules/leaflet/dist/leaflet.js'
 declare var L: any;
@@ -18,6 +19,10 @@ export class MapComponent implements OnInit {
     public markers: any;
     @Input()
     public middle: (center: string) => void;
+    @Input()
+    public map: any;
+    @Output()
+    sendMap = new EventEmitter();
     public ngOnInit() {
         this.markers = [
             {
@@ -41,9 +46,9 @@ export class MapComponent implements OnInit {
          ];
      }
     public ngAfterViewInit() {
-        L.Icon.Default.imagePath = ''
+        //L.Icon.Default.imagePath = ''
 
-        var map = L.map( 'map', {
+        this.map = L.map( 'map', {
             center: [45.2748993, -75.743832],
             zoom: 16
         });
@@ -51,21 +56,21 @@ export class MapComponent implements OnInit {
         L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             subdomains: ['a','b','c']
-        }).addTo( map );
+        }).addTo( this.map );
 
         for ( var i=0; i < this.markers.length; ++i ) 
         {
             L.marker( [this.markers[i].lat, this.markers[i].lng] )
                 .bindPopup( '<p>' + this.markers[i].name + '</p>' )
-                .addTo( map );
+                .addTo( this.map );
         }
 
-        map.on('dragend', () => {
-           this.middle(map.getCenter());
+        this.map.on('dragend', () => {
+           this.middle(this.map.getCenter());
         });
     }
 
-    public addMarker(lat, lng) {
-        console.log(lat, lng);
+    public addMarker(center, map) {
+        L.marker([center.lat, center.lng]).addTo( map );
     }
 }

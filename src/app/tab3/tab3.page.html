@@ -11,14 +11,14 @@
   <h2 text-center>List of available raids</h2>
   <ion-fab vertical="top" horizontal="end" slot="fixed">
     <ion-fab-button>
-      <ion-icon name="add" ></ion-icon>
+      <ion-icon name="add" (click)="addMarker()"></ion-icon>
     </ion-fab-button>
   </ion-fab>
   <ion-grid>
     <ion-row class="mapRow">
       <ion-col size="12">
         <div id="mapContainer">
-          <map [middle]="setstuff"></map>
+          <map [middle]="setLatLng"></map>
         </div>
       </ion-col>
 
