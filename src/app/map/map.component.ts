@@ -48,7 +48,8 @@ export class MapComponent implements OnInit {
         for ( var i=0; i < this.raids.length; ++i ) 
         {
             L.marker( [this.raids[i].lat, this.raids[i].lng] )
-                .bindPopup( '<p>' + this.raids[i].name + '</p>' )
+                .bindPopup( '<p>Room number:' + this.raids[i].roomNum + '</p>' +
+                            '<a href="#">Join this raid room</a>' )
                 .addTo( this.map );
         }
 
@@ -73,7 +74,8 @@ export class MapComponent implements OnInit {
     //really dont want to use the below
     public addNewMarker(raid) {
         //console.log(lat, lng, this.map);
-        L.marker([raid.lat, raid.lng]).bindPopup( '<p>' + raid.name + '</p>' ).addTo( this.map );
+        L.marker([raid.lat, raid.lng]).bindPopup( '<p>Room number:' + raid.roomNum + '</p>' +
+        '<a href="#">Join this raid room</a>' ).addTo( this.map );
     }
 
     public setAllMarkers(event) {

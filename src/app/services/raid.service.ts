@@ -37,10 +37,6 @@ export class RaidService {
 
   constructor() { }
 
-  protected setRaids() {
-
-  }
-
   getRaids() {
 
    this.updateRaids();
