@@ -97,7 +97,7 @@ export class TrainerComponent implements OnInit {
         }
 
         async function getRandomPokemon() {
-            return (await getOnePoke(ranNumber())).data.poke1.name
+            return (await getOnePoke(ranNumber())).data.poke1.name;
         }
 
         addEventListener("load", async function () {
