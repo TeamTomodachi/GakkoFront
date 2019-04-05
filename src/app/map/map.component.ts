@@ -83,12 +83,6 @@ export class MapComponent implements OnInit {
     }
 
     public reloadMap() {
-        //this.map.redraw();
-        // map.invalidateSize();
-        //     setTimeout(() => {
-        //       this.map.invalidateSize();
-        //     }, 0);
-         //}
          this.map.invalidateSize();
     }
 }

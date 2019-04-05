@@ -62,6 +62,9 @@ export class RaidService {
       if (element.address == "") {
        const response = await fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+element.lat+'&lon='+element.lng);
        const responseJson = (await response.json());
+       if (!responseJson.address.house_number) {
+        responseJson.address.house_number = "";
+       }
        element.address = responseJson.address.house_number + " " + responseJson.address.road;
       }
     });
