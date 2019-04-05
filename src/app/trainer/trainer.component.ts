@@ -24,8 +24,11 @@ export class TrainerComponent implements OnInit {
             pkm3.setAttribute("src", data.pkmn3.pogoImageUrl);
 
             document.getElementById("pkmn1Text").innerText = data.pkmn1.name;
+            document.getElementById("pkmn1Text").setAttribute("alt", data.pkmn1.name);
             document.getElementById("pkmn2Text").innerText = data.pkmn2.name;
+            document.getElementById("pkmn2Text").setAttribute("alt", data.pkmn2.name);
             document.getElementById("pkmn3Text").innerText = data.pkmn3.name;
+            document.getElementById("pkmn3Text").setAttribute("alt", data.pkmn3.name);
         }
 
         async function getOnePoke(pokedexNum) {
