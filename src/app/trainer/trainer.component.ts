@@ -21,9 +21,9 @@ export class TrainerComponent implements OnInit {
             const pkm2 = document.getElementById("pkmn2Img");
             const pkm3 = document.getElementById("pkmn3Img");
 
-            pkm1.setAttribute("src", imageLinkP1 + data.pkmn1.number + imageLinkP2);
-            pkm2.setAttribute("src", imageLinkP1 + data.pkmn2.number + imageLinkP2);
-            pkm3.setAttribute("src", imageLinkP1 + data.pkmn3.number + imageLinkP2);
+            pkm1.setAttribute("src", data.pkmn1.pogoImageUrl);
+            pkm2.setAttribute("src", data.pkmn2.pogoImageUrl);
+            pkm3.setAttribute("src", data.pkmn3.pogoImageUrl);
 
             document.getElementById("pkmn1Text").innerText = data.pkmn1.name;
             document.getElementById("pkmn2Text").innerText = data.pkmn2.name;
@@ -34,32 +34,58 @@ export class TrainerComponent implements OnInit {
 
         async function queryAgainstPKMNDB(theThreePokes) {
 
-            var pokemonsJsonUrl = "https://graphql-pokemon.now.sh/?query=";
+            var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/?query=";
+            console.log("hello");
             const query = `
                 {
                     pkmn1: pokemon(name: "${theThreePokes[0]}") {
                         name
-                        number
+                        pokedexNumber
+                        spriteImageUrl
+                        pogoImageUrl
                     }
                     pkmn2: pokemon(name: "${theThreePokes[1]}") {
                         name
-                        number
+                        pokedexNumber
+                        spriteImageUrl
+                        pogoImageUrl
                     }
                     pkmn3: pokemon(name: "${theThreePokes[2]}") {
                         name
-                        number
+                        pokedexNumber
+                        spriteImageUrl
+                        pogoImageUrl
                     }
                 }      
             `;
 
-            const res = await fetch(pokemonsJsonUrl + query);
+            const res = await goRetrieve(pokemonsJsonUrl, query);
+            console.log("after res");
+            console.log(res);
             const json = await res.json();
 
-            // console.log(json);
+            console.log("printing json: ");
+            console.log(json);
             return json;
         }
 
-        const arrayOfPokes = ["Abra", "Zapdos", "Rattata"]
+        async function goRetrieve(url, query) {
+            const queryObj = {
+                query: query
+            };
+            const queryObjJson = JSON.stringify(queryObj);
+            console.log("goRetrieve function entered");
+            // console.log("url: " + url + query);
+            return await fetch(url, {
+                method: 'POST',
+                body: queryObjJson,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });  
+        }
+
+        const arrayOfPokes = ["Kadabra", "Raichu", "Rattata"]
 
         addEventListener("load", async function () {
             queryAgainstPKMNDB(arrayOfPokes).then(fetchPKMNImage);
