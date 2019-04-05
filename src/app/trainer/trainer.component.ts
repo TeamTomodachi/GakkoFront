@@ -15,8 +15,6 @@ export class TrainerComponent implements OnInit {
     async ngOnInit() {
 
         function fetchPKMNImage({data}) {
-            const imageLinkP1 = "https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_";
-            const imageLinkP2 = "_00.png";
             const pkm1 = document.getElementById("pkmn1Img");
             const pkm2 = document.getElementById("pkmn2Img");
             const pkm3 = document.getElementById("pkmn3Img");
@@ -28,14 +26,27 @@ export class TrainerComponent implements OnInit {
             document.getElementById("pkmn1Text").innerText = data.pkmn1.name;
             document.getElementById("pkmn2Text").innerText = data.pkmn2.name;
             document.getElementById("pkmn3Text").innerText = data.pkmn3.name;
+        }
 
-            // console.log(data.pkmn1.number);
+        async function getOnePoke(pokedexNum) {
+            var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/?query=";
+            const query = `
+            {
+                poke1: pokemon (pokedexNumber: ${pokedexNum}) {
+                  name
+                }
+            }              
+            `;
+
+            const res = await goRetrieve(pokemonsJsonUrl, query);
+            const json = await res.json();
+
+            return json;
         }
 
         async function queryAgainstPKMNDB(theThreePokes) {
 
             var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/?query=";
-            console.log("hello");
             const query = `
                 {
                     pkmn1: pokemon(name: "${theThreePokes[0]}") {
@@ -60,12 +71,8 @@ export class TrainerComponent implements OnInit {
             `;
 
             const res = await goRetrieve(pokemonsJsonUrl, query);
-            console.log("after res");
-            console.log(res);
             const json = await res.json();
 
-            console.log("printing json: ");
-            console.log(json);
             return json;
         }
 
@@ -74,8 +81,6 @@ export class TrainerComponent implements OnInit {
                 query: query
             };
             const queryObjJson = JSON.stringify(queryObj);
-            console.log("goRetrieve function entered");
-            // console.log("url: " + url + query);
             return await fetch(url, {
                 method: 'POST',
                 body: queryObjJson,
@@ -85,11 +90,24 @@ export class TrainerComponent implements OnInit {
             });  
         }
 
-        const arrayOfPokes = ["Kadabra", "Raichu", "Rattata"]
+        let arrayOfPokes = ["Kadabra", "Articuno", "Rattata"];
+
+        function ranNumber() {
+            return Math.floor((Math.random() * 493) + 1);
+        }
+
+        async function getRandomPokemon() {
+            return (await getOnePoke(ranNumber())).data.poke1.name
+        }
 
         addEventListener("load", async function () {
             queryAgainstPKMNDB(arrayOfPokes).then(fetchPKMNImage);
+
+            arrayOfPokes = [(await getRandomPokemon()), 
+                            (await getRandomPokemon()), 
+                            (await getRandomPokemon())];
+
+            queryAgainstPKMNDB(arrayOfPokes).then(fetchPKMNImage);
         });
     }
-
 }
