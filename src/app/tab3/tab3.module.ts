@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { Tab3Page } from './tab3.page';
 
 import { MapComponent } from '../map/map.component';
+import { AddRaidComponent } from './add-raid/add-raid.component';
 
 
 
@@ -16,8 +17,9 @@ import { MapComponent } from '../map/map.component';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }])
   ],
-  declarations: [Tab3Page, MapComponent],
-  exports: [MapComponent]
+  declarations: [Tab3Page, MapComponent, AddRaidComponent],
+  exports: [MapComponent, AddRaidComponent],
+  entryComponents: [AddRaidComponent]
 })
 export class Tab3PageModule {
 

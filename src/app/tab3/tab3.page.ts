@@ -2,6 +2,9 @@ import { Component, Input, ViewChild, Output, EventEmitter, OnInit } from '@angu
 import { MapComponent } from '../map/map.component';
 import { RaidService } from '../services/raid.service'
 import { Raid } from '../models/raid'
+import { ModalController } from '@ionic/angular'
+import { mapChildrenIntoArray } from '@angular/router/src/url_tree';
+import { AddRaidComponent } from './add-raid/add-raid.component';
 
 @Component({
   selector: 'app-tab3',
@@ -24,7 +27,7 @@ export class Tab3Page implements OnInit {
   @Output()
   allRaids: EventEmitter<any> = new EventEmitter();
 
-constructor(public rs: RaidService) {
+constructor(public rs: RaidService, public modalController: ModalController) {
   this.setLatLng = this.setLatLng.bind(this);
   //this.raids = this.rs.getRaids();
   }
@@ -44,6 +47,18 @@ constructor(public rs: RaidService) {
     this.setRaids();
   }
   
+  async displayForm() {
+    const modal = await this.modalController.create({
+      component: AddRaidComponent,
+      componentProps: { 'show-backdrop': true }
+    });
+
+    await modal.present();
+  }
+
+  closeForm(){
+    this.modalController.dismiss();
+  }
 
   setLatLng(center) {
     this.middle=center;
