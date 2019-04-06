@@ -17,24 +17,23 @@ export class TokenServiceService {
       return this.token;
     }
     const token: string | null = localStorage.getItem("pokkenToken");
-    const response = await fetch("/auth/api/authtoken", {
-      "method": "POST",
-      "headers": {
-        token
+
+    if (token) {
+      const response = await fetch("/auth/api/authtoken", {
+        "method": "POST",
+        "headers": {
+          token
+        }
+      });
+  
+      const {isValid} = await response.json();
+  
+      if (isValid) {
+        this.token = token;
+        return token;
       }
-    });
-
-    const {isValid} = await response.json();
-
-    if (isValid) {
-      this.token = token;
-      return token;
     }
-    else {
-      //route somewhere
-      this.router.navigateByUrl('tabs/tab1');
-
-    }
+    this.router.navigateByUrl('tabs/tab1');
   }
 
   setToken(token: string) {
