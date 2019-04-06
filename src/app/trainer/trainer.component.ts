@@ -33,7 +33,8 @@ export class TrainerComponent implements OnInit {
         }
 
         async function getOnePoke(pokedexNum) {
-            var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/?query=";
+            var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/";
+            // var pokemonsJsonUrl = "/api-gateway/api/graphql/";
             const query = `
             {
                 poke1: pokemon (pokedexNumber: ${pokedexNum}) {
@@ -50,7 +51,8 @@ export class TrainerComponent implements OnInit {
 
         async function queryAgainstPKMNDB(theThreePokes) {
 
-            var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/?query=";
+            var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/";
+            // var pokemonsJsonUrl = "/api-gateway/api/graphql/";
             const query = `
                 {
                     pkmn1: pokemon(name: "${theThreePokes[0]}") {
@@ -144,7 +146,7 @@ async function doQuery(query: string, variables = {}): Promise<any> {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            // 'token': TOKEN,
+            // 'token': "",
         },
         body: JSON.stringify({ query, variables }),
     });
