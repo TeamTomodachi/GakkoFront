@@ -8,6 +8,7 @@ import {
     templateUrl: './trainer.component.html',
     styleUrls: ['./trainer.component.scss'],
 })
+
 export class TrainerComponent implements OnInit {
 
     constructor() {}
@@ -104,13 +105,53 @@ export class TrainerComponent implements OnInit {
         }
 
         addEventListener("load", async function () {
-            queryAgainstPKMNDB(arrayOfPokes).then(fetchPKMNImage);
+            doQuery(threePokeQuery, arrayOfPokes).then(fetchPKMNImage);
 
-            arrayOfPokes = [(await getRandomPokemon()), 
-                            (await getRandomPokemon()), 
-                            (await getRandomPokemon())];
+            // arrayOfPokes = [(await getRandomPokemon()), 
+            //                 (await getRandomPokemon()), 
+            //                 (await getRandomPokemon())];
 
-            queryAgainstPKMNDB(arrayOfPokes).then(fetchPKMNImage);
+            // queryAgainstPKMNDB(arrayOfPokes).then(fetchPKMNImage);
         });
     }
+}
+
+const threePokeQuery = `
+                {
+                    pkmn1: pokemon(name: "$id1") {
+                        name
+                        pokedexNumber
+                        spriteImageUrl
+                        pogoImageUrl
+                    }
+                    pkmn2: pokemon(name: "$id2") {
+                        name
+                        pokedexNumber
+                        spriteImageUrl
+                        pogoImageUrl
+                    }
+                    pkmn3: pokemon(name: "$id3") {
+                        name
+                        pokedexNumber
+                        spriteImageUrl
+                        pogoImageUrl
+                    }
+                }      
+            `;
+
+async function doQuery(query: string, variables = {}): Promise<any> {
+    const response = await fetch('http://192.168.99.100/api-gateway/api/graphql/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            // 'token': TOKEN,
+        },
+        body: JSON.stringify({ query, variables }),
+    });
+
+    if (!response.ok) {
+        throw new Error(response.statusText);
+    }
+
+    return response.json();
 }
