@@ -3,6 +3,10 @@ import {
     OnInit
 } from '@angular/core';
 
+import {
+    TokenServiceService
+} from '../services/token-service.service';
+
 @Component({
     selector: 'app-trainer',
     templateUrl: './trainer.component.html',
@@ -11,7 +15,7 @@ import {
 
 export class TrainerComponent implements OnInit {
 
-    constructor() {}
+    constructor(private tokenservice: TokenServiceService) {}
 
     async ngOnInit() {
 
@@ -106,8 +110,8 @@ export class TrainerComponent implements OnInit {
             return (await getOnePoke(ranNumber())).data.poke1.name;
         }
 
-        addEventListener("load", async function () {
-            doQuery(threePokeQuery, arrayOfPokes).then(fetchPKMNImage);
+        addEventListener("load", async () => {
+            doQuery(await this.tokenservice.getToken(), threePokeQuery, arrayOfPokes).then(fetchPKMNImage);
 
             // arrayOfPokes = [(await getRandomPokemon()), 
             //                 (await getRandomPokemon()), 
@@ -141,12 +145,12 @@ const threePokeQuery = `
                 }      
             `;
 
-async function doQuery(query: string, variables = {}): Promise<any> {
+async function doQuery(token: string, query: string, variables = {}): Promise<any> {
     const response = await fetch('http://192.168.99.100/api-gateway/api/graphql/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            // 'token': "",
+            token,
         },
         body: JSON.stringify({ query, variables }),
     });
