@@ -20,9 +20,9 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-button expand="full" name="add" (click)="displayForm()" color="primary">CREATE ROOM</ion-button>
+        <ion-button expand="full" name="add" (click)="displayForm()" color="primary" class="createRoom" shape="round">CREATE ROOM</ion-button>
       
-        <ion-button expand="full" color="primary">JOIN ROOM</ion-button>
+        <ion-button expand="full" color="primary" class="joinRoom" shape="round">JOIN ROOM</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -40,7 +40,7 @@
                         <ion-label class="raidLocation">Room number: {{ raid.roomNum }}</ion-label>
                     </ion-col>
                       <ion-col size="4">
-                        <ion-label class="raidTime">*TIME*</ion-label>
+                        <ion-label class="raidTime">{{ raid.time }}</ion-label>
                       </ion-col>
                   </ion-row>
                   <ion-row>

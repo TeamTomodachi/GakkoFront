@@ -1,9 +1,12 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { ModalController } from '@ionic/angular'
+import { RaidService } from '../../services/raid.service'
+import { Raid } from '../../models/raid'
 
 @Component({
   selector: 'app-add-raid',
   templateUrl: './add-raid.component.html',
-  styleUrls: ['./add-raid.component.scss'],
+  styleUrls: ['./add-raid.component.scss']
 })
 export class AddRaidComponent implements OnInit {
 
@@ -14,25 +17,25 @@ export class AddRaidComponent implements OnInit {
   level: string;
   private: boolean;
 
-  constructor() { }
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
+
   }
 
   onSubmit() {
     const raid = {
-      title: this.time,
+      time: this.time,
       level: this.level,
       private: this.private
 
     }
-
-    this.addRaid.emit(raid);
+    this.modalController.dismiss(
+      raid
+    );
   }
 
   closeForm(){
-    this.close.emit(true);
+    this.modalController.dismiss();
   }
-
-
 }

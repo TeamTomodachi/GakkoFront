@@ -1,7 +1,30 @@
-<form class="form" (ngSubmit)="onSubmit()">
-    <ion-input type="text" name="time" [(ngModel)]="time" placeholder="Enter time..."></ion-input>
-    <ion-input type="text" name="level" [(ngModel)]="level" placeholder="Enter raid level..."></ion-input>
-    <ion-checkbox type="checkbox" name="private" [(ngModel)]="private" id="private"></ion-checkbox><label for="private">Private room?</label>
-    <ion-button color="primary" type="submit" value="Submit" class="btn">Submit</ion-button>
-    <ion-button color="danger" type="submit" value="Submit" class="btn" (click)="closeForm();">Cancel</ion-button>
+<form #form="ngForm" class="form" (ngSubmit)="onSubmit()" name="ngForm">
+  <h3>Create a new raid marker</h3>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+            <ion-label>Date/time</ion-label>
+            <ion-datetime display-format="MMM/DD/YY hh:mm" [(ngModel)]="time" name="time"></ion-datetime>
+          </ion-item>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input type="text" name="level" [(ngModel)]="level" placeholder="Enter raid level..."></ion-input>
+    </ion-col>
+    <ion-col>
+      <ion-checkbox type="checkbox" name="private" [(ngModel)]="private" id="private"></ion-checkbox><label for="private">Private room?</label>
+    </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" type="submit" value="Submit" class="btn" name="submit">Submit</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="danger" class="btn" name="cancel" (click)="closeForm()">Cancel</ion-button>
+      </ion-col>
+  </ion-row>
+  </ion-grid>
 </form>

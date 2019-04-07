@@ -34,7 +34,6 @@ constructor(public rs: RaidService, public modalController: ModalController) {
 
   public ngOnInit() {
     this.map = this.mapElement.map;
-    // this.setRaids();
     this.raids = this.rs.getRaids();
   }
 
@@ -51,13 +50,13 @@ constructor(public rs: RaidService, public modalController: ModalController) {
     const modal = await this.modalController.create({
       component: AddRaidComponent,
       cssClass: "addRaid"
-    });
-
+        });
     await modal.present();
-  }
+    const { data } = await modal.onDidDismiss();
 
-  closeForm(){
-    this.modalController.dismiss();
+    if (data) {
+      this.addNewMarker(data);
+    }
   }
 
   setLatLng(center) {
@@ -76,8 +75,8 @@ constructor(public rs: RaidService, public modalController: ModalController) {
     this.mapElement.addMarker(lat, lng, map);
   }
   //really dont want to have to keep this
-  addNewMarker() {
-    let newRaid: Raid = this.rs.addRaid(this.middle);
+  addNewMarker(raid) {
+    let newRaid: Raid = this.rs.addRaid(this.middle, raid);
     //this.mapElement.reloadMap();
     this.mapElement.addNewMarker(newRaid);
   }

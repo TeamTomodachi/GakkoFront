@@ -19,19 +19,22 @@ export class RaidService {
       "roomNum": Math.floor(Math.random() * 10000) + 1,
       "address": "",
       "lat": 45.2775417,
-      "lng": -75.7393688
+      "lng": -75.7393688,
+      "time": "18/04/22 04:19"
     },
     {
       "roomNum": Math.floor(Math.random() * 10000) + 1,
       "address": "",
       "lat": 45.2717433,
-      "lng": -75.738532
+      "lng": -75.738532,
+      "time": "18/04/28 07:01"
     },
     {
       "roomNum": Math.floor(Math.random() * 10000) + 1,
       "address": "",
       "lat": 45.2668505,
-      "lng": -75.7500547
+      "lng": -75.7500547,
+      "time": "18/04/28 04:21"
     }
  ];;
 
@@ -45,13 +48,21 @@ export class RaidService {
 
   }
 
-  addRaid(center) {
+  addRaid(center, raid) {
     let newRaid: Raid = new Raid;
     newRaid.lat = center.lat;
     newRaid.lng = center.lng;
     newRaid.address = "";
     newRaid.roomNum = Math.floor(Math.random() * 10000) + 1;
-
+    if (raid.roomNum) {
+      newRaid.roomNum = raid.roomNum;
+    }
+    if (raid.time) {
+      newRaid.time = raid.time.replace("T", " ");
+      newRaid.time = newRaid.time.replace("-/g", "/");
+      newRaid.time = newRaid.time.slice(2, 16);
+      //newRaid.time = raid.time;
+    }
     this.raidList.push(newRaid);
     this.updateRaids();
     return newRaid;

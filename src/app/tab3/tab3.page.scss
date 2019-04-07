@@ -14,7 +14,8 @@
 //to keep the map at a set aspect ratio - appears to help loading map tiles
 #mapContainer{
 	position: relative;
-	width: 100%;
+	width: 90%;
+	margin: auto;
 }
 #mapContainer:before{
 	content: "";
