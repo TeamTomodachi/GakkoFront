@@ -13,17 +13,17 @@
                 <ion-row id="loginTitle">
                     <ion-col>POGO Gakko Login</ion-col>
                 </ion-row>
-                <form action="">
+                <form (ngSubmit)="onSubmit()">
                     <ion-row>
                         <ion-col>
                             <ion-label position="stacked">Username</ion-label>
-                            <ion-input placeholder="Username" autofocus="on" required="true"></ion-input>
+                            <ion-input [(ngModel)]="user" placeholder="Username" type="text" autofocus="on" required="true"></ion-input>
                         </ion-col>
                     </ion-row>
                     <ion-row>
                         <ion-col>
                             <ion-label position="stacked">Password</ion-label>
-                            <ion-input placeholder="Password" type="password" required="true"></ion-input>
+                            <ion-input [(ngModel)]l="pass" placeholder="Password" type="password" required="true"></ion-input>
                         </ion-col>
                     </ion-row>
                     <ion-row>
