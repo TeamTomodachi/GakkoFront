@@ -8,6 +8,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class AddRaidComponent implements OnInit {
 
   @Output() addRaid: EventEmitter<any> = new EventEmitter();
+  @Output() close: EventEmitter<any> = new EventEmitter();
 
   time: string;
   level: string;
@@ -29,8 +30,8 @@ export class AddRaidComponent implements OnInit {
     this.addRaid.emit(raid);
   }
 
-  closeRaid(){
-    
+  closeForm(){
+    this.close.emit(true);
   }
 
 

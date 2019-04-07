@@ -9,16 +9,11 @@
 
 <ion-content>
   <h3 text-center>List of available raids</h3>
-  <!-- <ion-fab vertical="top" horizontal="end" slot="fixed">
-    <ion-fab-button>
-      <ion-icon name="add" (click)="addMarker()"></ion-icon>
-    </ion-fab-button>
-  </ion-fab> -->
   <ion-grid>
     <ion-row class="mapRow">
       <ion-col size="12">
         <div id="mapContainer">
-          <map [middle]="setLatLng" (raidList)="setAllMarkers($event)"></map>
+          <map [middle]="setLatLng"></map>
         </div>
       </ion-col>
 
@@ -55,121 +50,6 @@
               </ion-row>
             </ion-grid>
           </ion-item>
-
-<!-- <ion-list>
-                    <ion-item>
-                        {{raid.name}}
-                        <p>{{raid.address}}</p>
-                    </ion-item>
-                  </ion-list> -->
-              <!-- <ion-row>
-                <ion-col size="3">
-                  <img class="raidThumb" src="https://placeimg.com/201/201/arch" alt="Raid location">
-                </ion-col>
-                <ion-col>
-                  <ion-row>
-                    <ion-col size="8">
-                        <ion-label class="raidLocation">Raid 1</ion-label>
-                    </ion-col>
-                      <ion-col size="4">
-                        <ion-label class="raidTime">*TIME*</ion-label>
-                      </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-label class="raidAddress">*ADDRESS*</ion-label>
-                  </ion-row>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-item>
-          <ion-item>
-              <ion-grid>
-                  <ion-row>
-                    <ion-col size="3">
-                      <img class="raidThumb" src="https://placeimg.com/201/200/arch" alt="Raid location">
-                    </ion-col>
-                    <ion-col>
-                      <ion-row>
-                        <ion-col size="8">
-                            <ion-label class="raidLocation">Raid 2</ion-label>
-                        </ion-col>
-                          <ion-col size="4">
-                            <ion-label class="raidTime">*TIME*</ion-label>
-                          </ion-col>
-                      </ion-row>
-                      <ion-row>
-                        <ion-label class="raidAddress">*ADDRESS*</ion-label>
-                      </ion-row>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-          </ion-item>
-          <ion-item>
-              <ion-grid>
-                  <ion-row>
-                    <ion-col size="3">
-                      <img class="raidThumb" src="https://placeimg.com/201/202/arch" alt="Raid location">
-                    </ion-col>
-                    <ion-col>
-                      <ion-row>
-                        <ion-col size="8">
-                            <ion-label class="raidLocation">Raid 3</ion-label>
-                        </ion-col>
-                          <ion-col size="4">
-                            <ion-label class="raidTime">*TIME*</ion-label>
-                          </ion-col>
-                      </ion-row>
-                      <ion-row>
-                        <ion-label class="raidAddress">*ADDRESS*</ion-label>
-                      </ion-row>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-          </ion-item>
-          <ion-item>
-              <ion-grid>
-                  <ion-row>
-                    <ion-col size="3">
-                      <img class="raidThumb" src="https://placeimg.com/202/200/arch" alt="Raid location">
-                    </ion-col>
-                    <ion-col>
-                      <ion-row>
-                        <ion-col size="8">
-                            <ion-label class="raidLocation">Raid 4</ion-label>
-                        </ion-col>
-                          <ion-col size="4">
-                            <ion-label class="raidTime">*TIME*</ion-label>
-                          </ion-col>
-                      </ion-row>
-                      <ion-row>
-                        <ion-label class="raidAddress">*ADDRESS*</ion-label>
-                      </ion-row>
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
-          </ion-item>
-          <ion-item>
-              <ion-grid>
-                  <ion-row>
-                    <ion-col size="3">
-                      <img class="raidThumb" src="https://placeimg.com/202/201/arch" alt="Raid location">
-                    </ion-col>
-                    <ion-col>
-                      <ion-row>
-                        <ion-col size="8">
-                            <ion-label class="raidLocation">Raid 5</ion-label>
-                        </ion-col>
-                          <ion-col size="4">
-                            <ion-label class="raidTime">*TIME*</ion-label>
-                          </ion-col>
-                      </ion-row>
-                      <ion-row>
-                        <ion-label class="raidAddress">*ADDRESS*</ion-label>
-                      </ion-row>
-                    </ion-col>
-                  </ion-row> -->
-                <!-- </ion-grid>
-          </ion-item> -->
         </ion-list>
       </ion-col>
     </ion-row>

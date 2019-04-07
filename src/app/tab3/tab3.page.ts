@@ -50,7 +50,7 @@ constructor(public rs: RaidService, public modalController: ModalController) {
   async displayForm() {
     const modal = await this.modalController.create({
       component: AddRaidComponent,
-      componentProps: { 'show-backdrop': true }
+      cssClass: "addRaid"
     });
 
     await modal.present();
