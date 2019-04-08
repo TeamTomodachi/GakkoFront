@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, Output, EventEmitter, OnInit } from '@angu
 import { MapComponent } from '../map/map.component';
 import { RaidService } from '../services/raid.service'
 import { Raid } from '../models/raid'
-import { ModalController } from '@ionic/angular'
+import { ModalController, ToastController } from '@ionic/angular'
 import { mapChildrenIntoArray } from '@angular/router/src/url_tree';
 import { AddRaidComponent } from './add-raid/add-raid.component';
 
@@ -27,7 +27,7 @@ export class Tab3Page implements OnInit {
   @Output()
   allRaids: EventEmitter<any> = new EventEmitter();
 
-constructor(public rs: RaidService, public modalController: ModalController) {
+constructor(public rs: RaidService, public modalController: ModalController, public toastController: ToastController) {
   this.setLatLng = this.setLatLng.bind(this);
   //this.raids = this.rs.getRaids();
   }
@@ -56,7 +56,20 @@ constructor(public rs: RaidService, public modalController: ModalController) {
 
     if (data) {
       this.addNewMarker(data);
+      this.notifyRoomCreated(data)
     }
+  }
+
+
+  async notifyRoomCreated(raid) {
+    const toast = await this.toastController.create({
+      message: "A new raid room has been added.\nYour room number is: " + raid.roomNum,
+      showCloseButton: true,
+      position: 'top',
+      closeButtonText: 'Close',
+      duration: 2000
+    });
+    toast.present();
   }
 
   setLatLng(center) {

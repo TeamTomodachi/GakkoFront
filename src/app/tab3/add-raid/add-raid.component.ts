@@ -27,8 +27,8 @@ export class AddRaidComponent implements OnInit {
     const raid = {
       time: this.time,
       level: this.level,
-      private: this.private
-
+      private: this.private,
+      roomNum: Math.floor(Math.random() * 10000) + 1
     }
     this.modalController.dismiss(
       raid
