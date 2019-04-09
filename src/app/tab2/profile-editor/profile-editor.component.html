@@ -1,0 +1,30 @@
+<form #form="ngForm" class="form" (ngSubmit)="onSubmit()" name="ngForm">
+  <h3>Edit your profile</h3>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Display name</ion-label>
+          <ion-input type="text" [(ngModel)]="me.username" name="username"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input type="text" name="level" [(ngModel)]="level" placeholder="Enter raid level..."></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-checkbox type="checkbox" name="private" [(ngModel)]="private" id="private"></ion-checkbox><label for="private">Private room?</label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button color="primary" type="submit" value="Submit" class="btn" name="submit">Submit</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="danger" class="btn" name="cancel" (click)="closeForm()">Cancel</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
