@@ -19,10 +19,43 @@ export class TrainerComponent implements OnInit {
 
     async ngOnInit() {
 
+        const threePokeQuery = `
+            query FeaturedPokemon($id1: String!, $id2: String!, $id3: String!) {
+                pkmn1: pokemon(name: $id1) {
+                    name
+                    pokedexNumber
+                    spriteImageUrl
+                    pogoImageUrl
+                }
+                    pkmn2: pokemon(name: $id2) {
+                    name
+                    pokedexNumber
+                    spriteImageUrl
+                    pogoImageUrl
+                }
+                pkmn3: pokemon(name: $id3) {
+                    name
+                    pokedexNumber
+                    spriteImageUrl
+                    pogoImageUrl
+                }
+            }      
+        `;
+
+        const onePokeQuery = `
+            query ASinglePokemon ($pkdexNum: Int!) {
+                pkmn: pokemon (pokedexNumber: $pkdexNum) {
+                    name
+                }
+            }              
+        `;
+
         function fetchPKMNImage({data}) {
             const pkm1 = document.getElementById("pkmn1Img");
             const pkm2 = document.getElementById("pkmn2Img");
             const pkm3 = document.getElementById("pkmn3Img");
+
+            console.log("did it get here? (fetchPKMNImage)");
 
             pkm1.setAttribute("src", data.pkmn1.pogoImageUrl);
             pkm2.setAttribute("src", data.pkmn2.pogoImageUrl);
@@ -36,117 +69,102 @@ export class TrainerComponent implements OnInit {
             document.getElementById("pkmn3Text").setAttribute("alt", data.pkmn3.name);
         }
 
-        async function getOnePoke(pokedexNum) {
-            var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/";
+        async function getOnePoke(pokedexNum, token) {
+            // var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/";
             // var pokemonsJsonUrl = "/api-gateway/api/graphql/";
-            const query = `
-            {
-                poke1: pokemon (pokedexNumber: ${pokedexNum}) {
-                  name
-                }
-            }              
-            `;
+            console.log("starting pokedexnum now...");
 
-            const res = await goRetrieve(pokemonsJsonUrl, query);
-            const json = await res.json();
-
-            return json;
+            const res = await doQuery(token, onePokeQuery, {pkdexNum: pokedexNum})
+            // const res = await goRetrieve(pokemonsJsonUrl, query);
+            // const json = await res.json();
+            console.log("does it get here? before return in getOnePoke. here's the res: " + res);
+            return res;
         }
 
-        async function queryAgainstPKMNDB(theThreePokes) {
+        // async function queryAgainstPKMNDB(theThreePokes) {
 
-            var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/";
-            // var pokemonsJsonUrl = "/api-gateway/api/graphql/";
-            const query = `
-                {
-                    pkmn1: pokemon(name: "${theThreePokes[0]}") {
-                        name
-                        pokedexNumber
-                        spriteImageUrl
-                        pogoImageUrl
-                    }
-                    pkmn2: pokemon(name: "${theThreePokes[1]}") {
-                        name
-                        pokedexNumber
-                        spriteImageUrl
-                        pogoImageUrl
-                    }
-                    pkmn3: pokemon(name: "${theThreePokes[2]}") {
-                        name
-                        pokedexNumber
-                        spriteImageUrl
-                        pogoImageUrl
-                    }
-                }      
-            `;
+        //     // var pokemonsJsonUrl = "http://192.168.99.100/api-gateway/api/graphql/";
+        //     var pokemonsJsonUrl = "/api-gateway/api/graphql/";
+        //     const query = `
+        //         {
+        //             pkmn1: pokemon(name: "${theThreePokes[0]}") {
+        //                 name
+        //                 pokedexNumber
+        //                 spriteImageUrl
+        //                 pogoImageUrl
+        //             }
+        //             pkmn2: pokemon(name: "${theThreePokes[1]}") {
+        //                 name
+        //                 pokedexNumber
+        //                 spriteImageUrl
+        //                 pogoImageUrl
+        //             }
+        //             pkmn3: pokemon(name: "${theThreePokes[2]}") {
+        //                 name
+        //                 pokedexNumber
+        //                 spriteImageUrl
+        //                 pogoImageUrl
+        //             }
+        //         }      
+        //     `;
 
-            const res = await goRetrieve(pokemonsJsonUrl, query);
-            const json = await res.json();
+        //     const res = await goRetrieve(pokemonsJsonUrl, query);
+        //     const json = await res.json();
 
-            return json;
-        }
+        //     return json;
+        // }
 
-        async function goRetrieve(url, query) {
-            const queryObj = {
-                query: query
-            };
-            const queryObjJson = JSON.stringify(queryObj);
-            return await fetch(url, {
-                method: 'POST',
-                body: queryObjJson,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });  
-        }
+        // async function goRetrieve(url, query) {
+        //     const queryObj = {
+        //         query: query
+        //     };
+        //     const queryObjJson = JSON.stringify(queryObj);
+        //     return await fetch(url, {
+        //         method: 'POST',
+        //         body: queryObjJson,
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     });  
+        // }
 
-        let arrayOfPokes = ["Kadabra", "Articuno", "Rattata"];
+        let arrayOfPokes = {
+            id1: "Kadabra",
+            id2: "Articuno",
+            id3: "Rattata"
+        }//["Kadabra", "Articuno", "Rattata"];
 
         function ranNumber() {
             return Math.floor((Math.random() * 493) + 1);
         }
 
-        async function getRandomPokemon() {
-            return (await getOnePoke(ranNumber())).data.poke1.name;
+        async function getRandomPokemon(token: string) {
+            return (await getOnePoke(ranNumber(), token)).data.pkmn.name;
         }
 
         addEventListener("load", async () => {
+            // console.log("Flag 1 - Before Query");
             doQuery(await this.tokenservice.getToken(), threePokeQuery, arrayOfPokes).then(fetchPKMNImage);
+            // console.log("Flag 2 - After Query")
 
             // arrayOfPokes = [(await getRandomPokemon()), 
             //                 (await getRandomPokemon()), 
             //                 (await getRandomPokemon())];
 
+            // console.log(await getRandomPokemon(await this.tokenservice.getToken()));
+            arrayOfPokes.id1 = (await getRandomPokemon(await this.tokenservice.getToken()));
+            arrayOfPokes.id2 = (await getRandomPokemon(await this.tokenservice.getToken()));
+            arrayOfPokes.id3 = (await getRandomPokemon(await this.tokenservice.getToken()));
+
             // queryAgainstPKMNDB(arrayOfPokes).then(fetchPKMNImage);
+            doQuery(await this.tokenservice.getToken(), threePokeQuery, arrayOfPokes).then(fetchPKMNImage);
         });
     }
 }
 
-const threePokeQuery = `
-                {
-                    pkmn1: pokemon(name: "$id1") {
-                        name
-                        pokedexNumber
-                        spriteImageUrl
-                        pogoImageUrl
-                    }
-                    pkmn2: pokemon(name: "$id2") {
-                        name
-                        pokedexNumber
-                        spriteImageUrl
-                        pogoImageUrl
-                    }
-                    pkmn3: pokemon(name: "$id3") {
-                        name
-                        pokedexNumber
-                        spriteImageUrl
-                        pogoImageUrl
-                    }
-                }      
-            `;
-
 async function doQuery(token: string, query: string, variables = {}): Promise<any> {
-    const response = await fetch('http://192.168.99.100/api-gateway/api/graphql/', {
+    console.log("doing the query thing");
+    const response = await fetch('/api-gateway/api/graphql/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -154,10 +172,14 @@ async function doQuery(token: string, query: string, variables = {}): Promise<an
         },
         body: JSON.stringify({ query, variables }),
     });
+    console.log("after response grab");
 
     if (!response.ok) {
-        throw new Error(response.statusText);
+        throw new Error(`${response.statusText}: ${await response.text()}`);
     }
+
+    console.log("res: " + response.statusText);
+    // console.log("res in json: " + response.json());
 
     return response.json();
 }

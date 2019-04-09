@@ -10,11 +10,8 @@ import { TokenServiceService } from '../services/token-service.service'
 })
 
 export class Tab2Page implements OnInit{
-    constructor(private tokenService: TokenServiceService){
-
-    }
+    constructor(private tokenService: TokenServiceService){}
     ngOnInit(){
         console.log(this.tokenService.getToken());
     }
-
 }
