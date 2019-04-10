@@ -2,9 +2,9 @@ import { Component, Input, ViewChild, Output, EventEmitter, OnInit } from '@angu
 import { MapComponent } from '../map/map.component';
 import { RaidService } from '../services/raid.service'
 import { Raid } from '../models/raid'
-import { ModalController, ToastController } from '@ionic/angular'
-import { mapChildrenIntoArray } from '@angular/router/src/url_tree';
+import { ModalController, ToastController, AlertController  } from '@ionic/angular'
 import { AddRaidComponent } from './add-raid/add-raid.component';
+import { RaidRoomComponent } from './raid-room/raid-room.component';
 
 @Component({
   selector: 'app-tab3',
@@ -27,7 +27,7 @@ export class Tab3Page implements OnInit {
   @Output()
   allRaids: EventEmitter<any> = new EventEmitter();
 
-constructor(public rs: RaidService, public modalController: ModalController, public toastController: ToastController) {
+constructor(public rs: RaidService, public modalController: ModalController, public toastController: ToastController, public alertController: AlertController) {
   this.setLatLng = this.setLatLng.bind(this);
   //this.raids = this.rs.getRaids();
   }
@@ -60,6 +60,49 @@ constructor(public rs: RaidService, public modalController: ModalController, pub
     }
   }
 
+  async joinRoom() {
+    const alert = await this.alertController.create({
+      header: 'Enter room numer:',
+      inputs: [
+        {
+          name: 'roomNum',
+          type: 'text',
+          placeholder: 'Room numer...'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: data => {
+            console.log(data);
+            this.enterRoom(data.roomNum);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async enterRoom(roomNum) {
+    const modal = await this.modalController.create({
+      component: RaidRoomComponent,
+      componentProps: { 
+        roomNum: roomNum,
+        map: this.mapElement
+      },
+      cssClass: 'raidRoom'
+        });
+    await modal.present();
+
+  }
 
   async notifyRoomCreated(raid) {
     const toast = await this.toastController.create({
@@ -90,7 +133,6 @@ constructor(public rs: RaidService, public modalController: ModalController, pub
   //really dont want to have to keep this
   addNewMarker(raid) {
     let newRaid: Raid = this.rs.addRaid(this.middle, raid);
-    //this.mapElement.reloadMap();
     this.mapElement.addNewMarker(newRaid);
   }
 }

@@ -16,25 +16,25 @@ export class RaidService {
 
   raidList: Array<Raid> = this.raidList  = [
     {
-      "roomNum": Math.floor(Math.random() * 10000) + 1,
+      "roomNum": Math.floor(Math.random() * 10000) + 1000,
       "address": "",
       "lat": 45.2775417,
       "lng": -75.7393688,
-      "time": "18/04/22 04:19"
+      "time": "18-04-22 04:19"
     },
     {
-      "roomNum": Math.floor(Math.random() * 10000) + 1,
+      "roomNum": Math.floor(Math.random() * 10000) + 1000,
       "address": "",
       "lat": 45.2717433,
       "lng": -75.738532,
-      "time": "18/04/28 07:01"
+      "time": "18-04-28 07:01"
     },
     {
-      "roomNum": Math.floor(Math.random() * 10000) + 1,
+      "roomNum": Math.floor(Math.random() * 10000) + 1000,
       "address": "",
       "lat": 45.2668505,
       "lng": -75.7500547,
-      "time": "18/04/28 04:21"
+      "time": "18-04-28 04:21"
     }
  ];;
 
@@ -53,13 +53,12 @@ export class RaidService {
     newRaid.lat = center.lat;
     newRaid.lng = center.lng;
     newRaid.address = "";
-    newRaid.roomNum = Math.floor(Math.random() * 10000) + 1;
+    newRaid.roomNum = Math.floor(Math.random() * 10000) + 1000;
     if (raid.roomNum) {
       newRaid.roomNum = raid.roomNum;
     }
     if (raid.time) {
       newRaid.time = raid.time.replace("T", " ");
-      newRaid.time = newRaid.time.replace("-/g", "/");
       newRaid.time = newRaid.time.slice(2, 16);
       //newRaid.time = raid.time;
     }

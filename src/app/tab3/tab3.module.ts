@@ -7,6 +7,7 @@ import { Tab3Page } from './tab3.page';
 
 import { MapComponent } from '../map/map.component';
 import { AddRaidComponent } from './add-raid/add-raid.component';
+import { RaidRoomComponent } from './raid-room/raid-room.component';
 
 
 
@@ -17,9 +18,9 @@ import { AddRaidComponent } from './add-raid/add-raid.component';
     FormsModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }])
   ],
-  declarations: [Tab3Page, MapComponent, AddRaidComponent],
-  exports: [MapComponent, AddRaidComponent],
-  entryComponents: [AddRaidComponent]
+  declarations: [Tab3Page, MapComponent, AddRaidComponent, RaidRoomComponent],
+  exports: [MapComponent, AddRaidComponent, RaidRoomComponent],
+  entryComponents: [AddRaidComponent, RaidRoomComponent]
 })
 export class Tab3PageModule {
 
