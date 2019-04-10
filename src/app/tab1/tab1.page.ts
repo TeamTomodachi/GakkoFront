@@ -47,7 +47,7 @@ export class Tab1Page {
         });
 
         if (!response.ok) {
-            throw new Error(response.statusText);
+            throw new Error(`${response.statusText}: ${await response.text()}`);
         }
 
         return response.json();
