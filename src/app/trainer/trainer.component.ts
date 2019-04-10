@@ -19,6 +19,11 @@ export class TrainerComponent implements OnInit {
 
     async ngOnInit() {
 
+        /*
+            GraphQL query that'll fetch three pokemon using their pokemon
+            names. Each pokemon will include four properties: their name, 
+            pokedex number, their sprite and their pokemon go model image.
+        */
         const threePokeQuery = `
             query FeaturedPokemon($id1: String!, $id2: String!, $id3: String!) {
                 pkmn1: pokemon(name: $id1) {
@@ -42,6 +47,10 @@ export class TrainerComponent implements OnInit {
             }      
         `;
 
+        /*
+            Another GraphQL query that'll fetch a single pokemon's name, 
+            based off the pokedex number.
+        */
         const onePokeQuery = `
             query ASinglePokemon ($pkdexNum: Int!) {
                 pkmn: pokemon (pokedexNumber: $pkdexNum) {
@@ -50,6 +59,11 @@ export class TrainerComponent implements OnInit {
             }              
         `;
 
+        /*
+            Replaces three pokemon images and names on Tab2/Profile page.
+            Specificially replaces the url in the src attributes, the inner
+            text and the alt attribute.
+        */
         function fetchPKMNImage({data}) {
             const pkm1 = document.getElementById("pkmn1Img");
             const pkm2 = document.getElementById("pkmn2Img");
@@ -67,6 +81,10 @@ export class TrainerComponent implements OnInit {
             document.getElementById("pkmn3Text").setAttribute("alt", data.pkmn3.name);
         }
 
+        /*
+            Fetches a single pokemon using the pokedex number and the given token.
+            Returns results.
+        */
         async function getOnePoke(pokedexNum, token) {
             const res = await doQuery(token, onePokeQuery, {pkdexNum: pokedexNum})
             return res;
@@ -78,10 +96,18 @@ export class TrainerComponent implements OnInit {
             id3: "Rattata"
         }
 
+        /*
+            Randomly select a number between 1 and 493. The endpoint is 493 because that's 
+            how many pokemon are currently available in Pokemon Go, and the pokedex numbers
+            do not skip (fortunately).
+        */
         function ranNumber() {
             return Math.floor((Math.random() * 493) + 1);
         }
 
+        /*
+            Self-explanatory.
+        */
         async function getRandomPokemon(token: string) {
             return (await getOnePoke(ranNumber(), token)).data.pkmn.name;
         }
@@ -89,6 +115,12 @@ export class TrainerComponent implements OnInit {
         addEventListener("load", async () => {
             doQuery(await this.tokenservice.getToken(), threePokeQuery, arrayOfPokes).then(fetchPKMNImage);
 
+            /*
+                Oi, new dev team. The next 4 lines are only used for our demo purposes.
+                It replaces the properties of the arrayOfPokes object, fetches and display the
+                new pokemon. You guys won't be needing this when you pick this up, LOL.
+                Feel free to delete.
+            */
             arrayOfPokes.id1 = (await getRandomPokemon(await this.tokenservice.getToken()));
             arrayOfPokes.id2 = (await getRandomPokemon(await this.tokenservice.getToken()));
             arrayOfPokes.id3 = (await getRandomPokemon(await this.tokenservice.getToken()));
@@ -98,6 +130,11 @@ export class TrainerComponent implements OnInit {
     }
 }
 
+/*
+    The doQuery function takes in a token, a query and an object of variables.
+    The variables are plugged into the query and is put against a graphql schema.
+    The graphql schema returns the results of the query in the form of JSON.
+*/
 async function doQuery(token: string, query: string, variables = {}): Promise<any> {
     const response = await fetch('/api-gateway/api/graphql/', {
         method: 'POST',
