@@ -52,4 +52,20 @@ export class Tab1Page {
 
         return response.json();
     }
+
+    async createAccount(info) {
+        const response = await fetch('/api/UserAccount', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(info),
+        });
+
+        if (!response.ok) {
+            throw new Error(`${response.statusText}: ${await response.text()}`);
+        }
+
+        return response.json();
+    }
 }
