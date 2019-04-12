@@ -1,0 +1,30 @@
+ion-content {
+    background-color: #252424;
+    width: 100vw;
+    height: 100vh;
+
+    border: 1px solid black;
+}
+
+#flexCapabilities {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+
+    border: 1px solid black;
+
+    > ion-row {
+        width: 80%;
+        border: 1px solid black;
+    }
+
+    #createProfileTitle {
+        text-align: center;
+    }
+}
