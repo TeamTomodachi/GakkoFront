@@ -1,3 +1,13 @@
 .raidThumb {
     border-radius: 100%;
 }
+#mapCol>img {
+    position: relative;
+	width: 80%;
+	margin: auto;
+}
+#mapCol>img:before{
+	content: "";
+	display: block;
+	padding-top: 75%;
+}

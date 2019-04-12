@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable, observable } from 'rxjs';
-import { Raid } from '../models/raid'
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Raid } from '../models/raid';
+import { HttpHeaders } from '@angular/common/http';
 
+//not yet implemented. Once a proper back end for raids is implemented this could be used.
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
@@ -14,6 +14,7 @@ const httpOptions = {
 })
 export class RaidService {
 
+  // placeholder raid list with 3 raids.
   raidList: Array<Raid> = this.raidList  = [
     {
       "roomNum": Math.floor(Math.random() * 10000) + 1000,
@@ -48,16 +49,18 @@ export class RaidService {
 
   }
 
+  //return a raide (from a provided list of raids) by room number. Will need to be adjusted once a backend for raid lists is implemented.
   getRaidByRoomNum(roomNum, raids): any {
     let selectedRaid = null;
     raids.forEach(raid => {
       if (raid.roomNum === +roomNum) {
         selectedRaid = raid;
-      }    
+      }
     });
     return selectedRaid;
   }
 
+  //create and add a new raid
   addRaid(center, raid) {
     const newRaid: Raid = new Raid;
     newRaid.lat = center.lat;
@@ -70,13 +73,14 @@ export class RaidService {
     if (raid.time) {
       newRaid.time = raid.time.replace("T", " ");
       newRaid.time = newRaid.time.slice(2, 16);
-      //newRaid.time = raid.time;
     }
     this.raidList.push(newRaid);
     this.updateRaids();
     return newRaid;
   }
 
+  //below just updates raids with proper format and generates a raid room with a random number.
+  //Once placeholder data is replaced with real data, this should not be required.
   updateRaids() {
     this.raidList.forEach(async raid => {
       if (raid.address == "") {

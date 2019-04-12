@@ -1,45 +1,78 @@
-<div class="ion-text-center">
-  <h2>Room Number {{raid.roomNum}}</h2>
-</div>
-<div #map id="map" class="crosshairs"></div>
-<ion-grid>
-  <ion-row>
-    <ion-col>
-      <img src="../../../assets/map_placeholder.PNG"/>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-      <ion-col size="12">
-          <ion-list>
-            <ion-item>
-              <ion-col>
-                <ion-row>
-                <ion-col size="3">
-                  <img class="raidThumb" src="https://loremflickr.com/200/200/city" alt="Raid location">
-                </ion-col>
-                <ion-col size="9" class="raidInfo">
-                  <ion-row>
-                    <ion-col size="8">
-                        <ion-label class="raidLocation">Room number: {{ raid.roomNum }}</ion-label>
-                    </ion-col>
-                      <ion-col size="4">
-                        <ion-label class="raidTime">*TIME*{{ raid.time }}</ion-label>
-                      </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-label class="raidAddress">*LOCATION*{{ raid.address }}</ion-label>
-                  </ion-row>
-                </ion-col>
-              </ion-row>
-              </ion-col>
-            </ion-item>
-        </ion-list>
+<ion-content>
+    
+  <div class="ion-text-center">
+    <h2>Room Number {{raid.roomNum}}</h2>
+    <ion-button color="danger" class="btn" name="cancel" (click)="leaveRoom()" expand="full">Leave Room</ion-button>
+  </div>
+  <div #map id="map" class="crosshairs"></div>
+  <ion-grid>
+    <ion-row>
+        <div class="ion-text-center">
+      <ion-col id="mapCol">
+        <img src="../../../assets/map_placeholder.PNG"/>
       </ion-col>
-  </ion-row>
+      </div>
+    </ion-row>
+    <ion-row>
+        <ion-col size="12" id="raidCol">
+            <ion-list>
+              <ion-item>
+                <ion-col>
+                  <ion-row>
+                  <ion-col size="3">
+                    <img class="raidThumb" src="https://loremflickr.com/200/200/city" alt="Raid location">
+                  </ion-col>
+                  <ion-col size="9" class="raidInfo">
+                    <ion-row>
+                      <ion-col size="8">
+                          <ion-label class="raidLocation">Room number: {{ raid.roomNum }}</ion-label>
+                      </ion-col>
+                        <ion-col size="4">
+                          <ion-label class="raidTime">{{ raid.time }}</ion-label>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                      <ion-label class="raidAddress">{{ raid.address }}</ion-label>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+                </ion-col>
+              </ion-item>
+          </ion-list>
+        </ion-col>
+    </ion-row>
 
-  <ion-row>
+    <ion-row>
+      <ion-col id="chatCol">
 
-  </ion-row>
+          <ion-list *ngFor="let item of items">
+          <ion-item>
+            <ion-row>
+              <ion-col size="12">
+                <p><strong>{{ item.author }}:</strong></p>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="12">
+              <p>{{ item.msgContent }}</p>
+            </ion-col>
+          </ion-row>
+          </ion-item>
+          </ion-list>
 
-</ion-grid>
-<ion-button color="danger" class="btn" name="cancel" (click)="leaveRoom()">Leave Room</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col id="msgCol" size="10">
+          <ion-input placeholder="Enter Message..." [(ngModel)]="newMessage"></ion-input>
+          
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="addNewMessage()">
+      <ion-fab-button>
+        <ion-icon name="send"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+</ion-content>
