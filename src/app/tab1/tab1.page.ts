@@ -38,7 +38,7 @@ export class Tab1Page {
     }
 
     async authenticate(info) {
-        const response = await fetch('/api/Authentication', {
+        const response = await fetch('/auth/api/Authentication', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ export class Tab1Page {
     }
 
     async createAccount(info) {
-        const response = await fetch('/api/UserAccount', {
+        const response = await fetch('/auth/api/UserAccount', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
