@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
 import { MapComponent } from '../map/map.component';
-import { RaidService } from '../services/raid.service'
-import { Raid } from '../models/raid'
+import { RaidService } from '../services/raid.service';
+import { Raid } from '../models/raid';
 import { ModalController, ToastController, AlertController  } from '@ionic/angular'
 import { AddRaidComponent } from './add-raid/add-raid.component';
 import { RaidRoomComponent } from './raid-room/raid-room.component';
@@ -56,7 +56,7 @@ constructor(public rs: RaidService, public modalController: ModalController, pub
 
     if (data) {
       this.addNewMarker(data);
-      this.notifyRoomCreated(data)
+      this.notifyRoomCreated(data);
     }
   }
 
@@ -81,8 +81,14 @@ constructor(public rs: RaidService, public modalController: ModalController, pub
         }, {
           text: 'Ok',
           handler: data => {
-            console.log(data);
-            this.enterRoom(data.roomNum);
+            if (this.rs.getRaidByRoomNum(data.roomNum, this.raids)) {
+              const selectedRaid = this.rs.getRaidByRoomNum(data.roomNum, this.raids);
+              this.enterRoom(selectedRaid);
+            }
+            else {
+             console.log(this.raids.map(raid => {return raid.roomNum}))
+             this.notifyInvalidRaid();
+            }
           }
         }
       ]
@@ -91,11 +97,12 @@ constructor(public rs: RaidService, public modalController: ModalController, pub
     await alert.present();
   }
 
-  async enterRoom(roomNum) {
+  async enterRoom(raid) {
     const modal = await this.modalController.create({
       component: RaidRoomComponent,
       componentProps: { 
-        roomNum: roomNum,
+        raid: raid,
+        //map wont pass through
         map: this.mapElement
       },
       cssClass: 'raidRoom'
@@ -115,10 +122,22 @@ constructor(public rs: RaidService, public modalController: ModalController, pub
     toast.present();
   }
 
+  async notifyInvalidRaid() {
+    const toast = await this.toastController.create({
+      message: "Raid room does not exist. Please enter a different one.",
+      showCloseButton: true,
+      position: 'top',
+      closeButtonText: 'Close',
+      duration: 2000
+    });
+    toast.present();
+  }
+
   setLatLng(center) {
     this.middle=center;
   }
 
+  //likely unneeded
   getRaids(raids) {
     this.raidList = raids;
   }
@@ -130,9 +149,12 @@ constructor(public rs: RaidService, public modalController: ModalController, pub
   addMarker(lat, lng, map) {
     this.mapElement.addMarker(lat, lng, map);
   }
+  
   //really dont want to have to keep this
   addNewMarker(raid) {
     let newRaid: Raid = this.rs.addRaid(this.middle, raid);
+    //added below
+    this.raids.push(newRaid);
     this.mapElement.addNewMarker(newRaid);
   }
 }

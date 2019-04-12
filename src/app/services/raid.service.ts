@@ -36,7 +36,7 @@ export class RaidService {
       "lng": -75.7500547,
       "time": "18-04-28 04:21"
     }
- ];;
+ ];
 
   constructor() { }
 
@@ -48,8 +48,18 @@ export class RaidService {
 
   }
 
+  getRaidByRoomNum(roomNum, raids): any {
+    let selectedRaid = null;
+    raids.forEach(raid => {
+      if (raid.roomNum === +roomNum) {
+        selectedRaid = raid;
+      }    
+    });
+    return selectedRaid;
+  }
+
   addRaid(center, raid) {
-    let newRaid: Raid = new Raid;
+    const newRaid: Raid = new Raid;
     newRaid.lat = center.lat;
     newRaid.lng = center.lng;
     newRaid.address = "";
@@ -68,14 +78,21 @@ export class RaidService {
   }
 
   updateRaids() {
-    this.raidList.forEach(async element => {
-      if (element.address == "") {
-       const response = await fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+element.lat+'&lon='+element.lng);
+    this.raidList.forEach(async raid => {
+      if (raid.address == "") {
+       const response = await fetch('https://nominatim.openstreetmap.org/reverse?format=json&lat='+raid.lat+'&lon='+raid.lng);
        const responseJson = (await response.json());
        if (!responseJson.address.house_number) {
         responseJson.address.house_number = "";
        }
-       element.address = responseJson.address.house_number + " " + responseJson.address.road;
+       raid.address = responseJson.address.house_number + " " + responseJson.address.road;
+      }
+      if (!raid.roomNum) {
+        raid.roomNum = Math.floor(Math.random() * 10000) + 1000;
+      }
+      if (raid.time) {
+        raid.time = raid.time.replace("T", " ");
+        raid.time = raid.time.slice(2, 16);
       }
     });
   }

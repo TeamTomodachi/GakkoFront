@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { MapComponent } from '../../map/map.component';
+import { RaidService } from '../../services/raid.service';
+import { Raid } from '../../models/raid';
 
 @Component({
   selector: 'app-raid-room',
@@ -10,12 +12,11 @@ import { MapComponent } from '../../map/map.component';
 export class RaidRoomComponent implements OnInit {
 
   map;
-  roomNum;
+  raid;
 
   constructor(public modalController: ModalController) { }
 
   ngOnInit() {
-    console.log(this.map);
   }
 
   leaveRoom(){
