@@ -53,6 +53,20 @@ export class Tab1Page {
         return response.json();
     }
 
+    async onSubmitUserCreate() {
+        // Get user/pass
+        const clientInfo = {
+            'username': this.user,
+            //'email': this.email,
+            'password': this.pass,
+        };
+        // Get Token from /auth/api/authenticate
+        const { token } = await this.createAccount(clientInfo);
+
+        this.tokenservice.setToken(token);
+        this.router.navigateByUrl('tabs/tab2');
+    }
+
     async createAccount(info) {
         const response = await fetch('/api/UserAccount', {
             method: 'POST',
