@@ -11,12 +11,12 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
     styleUrls: ['tab2.page.scss']
 })
 
-export class Tab2Page implements OnInit{
+export class Tab2Page implements OnInit {
     constructor(private tokenService: TokenServiceService,
-        private modalController: ModalController){
+        private modalController: ModalController) {
 
     }
-    ngOnInit(){
+    ngOnInit() {
         console.log(this.tokenService.getToken());
     }
 

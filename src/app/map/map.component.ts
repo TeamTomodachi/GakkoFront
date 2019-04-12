@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { AfterViewChecked, Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
 import '../../../node_modules/leaflet/dist/leaflet.js';
 import { RaidService } from '../services/raid.service';
 import { Raid } from '../models/raid';
@@ -9,8 +9,8 @@ declare var L: any;
     templateUrl: './map.component.html',
     styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
-    @ViewChild("map")
+export class MapComponent implements AfterViewChecked, OnInit {
+    @ViewChild('map')
     public mapElement: ElementRef;
     @Input()
     public lat: any;
@@ -47,16 +47,15 @@ export class MapComponent implements OnInit {
         // add attribution layer as required by leaflet.js and openmaps (and most other map sources)
         L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-            subdomains: ['a','b','c']
+            subdomains: ['a', 'b', 'c']
         }).addTo( this.map );
 
         // set up markers for existing raids
-        for ( var i=0; i < this.raids.length; ++i ) 
-        {
+        for (let i = 0; i < this.raids.length; ++i ) {
             // set new marker
-            var marker = L.marker( [this.raids[i].lat, this.raids[i].lng] );
+            const marker = L.marker( [this.raids[i].lat, this.raids[i].lng] );
             // set up popup for when marker is clicked
-            var popup = L.popup()
+            const popup = L.popup()
                 .setContent(  '<p>Room number:' + this.raids[i].roomNum + '</p>' +
                 '<p (click)=joinRoomFromMap()>Join this raid room?</p>' );
 
@@ -64,11 +63,11 @@ export class MapComponent implements OnInit {
             popup.on('click', () => {
                 console.log('clicked');
 
-                //idea here is to be able to join a room by clicking the popup. The clickevent will not fire however.
+                // idea here is to be able to join a room by clicking the popup. The clickevent will not fire however.
 
                 // let selectedRaid: Raid = this.rs.getRaidByRoomNum(this.raids[i].roomNum, this.raids);
                 // console.log(selectedRaid);
-                //this.joinRoomFromMap.emit(this.raids[i])
+                // this.joinRoomFromMap.emit(this.raids[i])
             });
             // bind popup to marker
             marker.bindPopup(popup);
@@ -81,7 +80,7 @@ export class MapComponent implements OnInit {
            this.middle(this.map.getCenter());
         });
     }
-    
+
     // this is done to rerender the map after the view loads. This is here to fix a rendering issue with leaflet.
     public ngAfterViewChecked() {
         this.map.invalidateSize();

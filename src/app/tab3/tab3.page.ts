@@ -41,10 +41,9 @@ constructor(public rs: RaidService,
 
   ngOnViewInit() {
     // add all the markers from raid service
-    for ( let i = 0; i < this.raids.length; ++i )
-      {
-        this.addMarker(this.raids[i].lat, this.raids[i].lng, this.mapElement.map);
-      }
+    for ( let i = 0; i < this.raids.length; ++i ) {
+      this.addMarker(this.raids[i].lat, this.raids[i].lng, this.mapElement.map);
+    }
     this.setRaids();
   }
 
@@ -93,7 +92,7 @@ constructor(public rs: RaidService,
               const selectedRaid = this.rs.getRaidByRoomNum(data.roomNum, this.raids);
               this.enterRoom(selectedRaid);
             } else {
-             console.log(this.raids.map(raid =>raid.roomNum));
+             console.log(this.raids.map(raid => raid.roomNum));
              this.notifyInvalidRaid();
             }
           }
@@ -149,7 +148,7 @@ constructor(public rs: RaidService,
     this.middle = center;
   }
 
-  //set up raid list
+  // set up raid list
   setRaids() {
     this.allRaids.emit(this.raidList);
   }

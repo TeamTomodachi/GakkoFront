@@ -16,18 +16,18 @@ export class TokenServiceService {
     if (this.token) {
       return this.token;
     }
-    const token: string | null = localStorage.getItem("pokkenToken");
+    const token: string | null = localStorage.getItem('pokkenToken');
 
     if (token) {
-      const response = await fetch("/auth/api/authtoken", {
-        "method": "POST",
-        "headers": {
+      const response = await fetch('/auth/api/authtoken', {
+        method: 'POST',
+        headers: {
           token
         }
       });
-  
+
       const {isValid} = await response.json();
-  
+
       if (isValid) {
         this.token = token;
         return token;
@@ -37,8 +37,7 @@ export class TokenServiceService {
   }
 
   setToken(token: string) {
-    localStorage.setItem("pokkenToken", token);
+    localStorage.setItem('pokkenToken', token);
     this.token = token;
   }
-
 }

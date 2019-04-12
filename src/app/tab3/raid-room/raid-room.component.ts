@@ -1,8 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { MapComponent } from '../../map/map.component';
-import { RaidService } from '../../services/raid.service';
-import { Raid } from '../../models/raid';
 import { Message } from '../../models/message';
 
 @Component({
@@ -20,20 +17,20 @@ export class RaidRoomComponent implements OnInit {
   items;
   // new message created in raid room.
   newMessage: string;
-  
+
   @Input()
   messages: Array<Message> = [
     {
-      "author": "John",
-      "msgContent": "Here is a message"
+      'author': 'John',
+      'msgContent': 'Here is a message'
     },
     {
-      "author": "Jack",
-      "msgContent": "Speak up I can't hear you"
+      'author': 'Jack',
+      'msgContent': 'Speak up I can\'t hear you'
     },
     {
-      "author": "Jill",
-      "msgContent": "he said HERE IS A MESSAGE"
+      'author': 'Jill',
+      'msgContent': 'he said HERE IS A MESSAGE'
     }
  ];
 
@@ -49,11 +46,10 @@ export class RaidRoomComponent implements OnInit {
 
   // add a new message to chat from input
   addNewMessage() {
-    let message = new Message();
-    message.author = "Steve";
+    const message = new Message();
+    message.author = 'Steve';
     message.msgContent = this.newMessage;
     this.messages.push(message);
-    this.newMessage = "";
+    this.newMessage = '';
   }
-
 }

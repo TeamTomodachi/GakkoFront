@@ -15,23 +15,23 @@ import { Router } from '@angular/router';
 })
 
 export class Tab1Page {
-    user: string
-    pass: string
+    user: string;
+    pass: string;
 
     constructor(
         private tokenservice: TokenServiceService,
-        private router: Router   
+        private router: Router
     ) {}
 
     async onSubmit() {
         // Get user/pass
-        let clientInfo = {
-            "username": this.user,
-            "password": this.pass,
-            "rememberLogin": true,
-        }
+        const clientInfo = {
+            'username': this.user,
+            'password': this.pass,
+            'rememberLogin': true,
+        };
         // Get Token from /auth/api/authenticate
-        let {token} = await this.authenticate(clientInfo);
+        const { token } = await this.authenticate(clientInfo);
 
         this.tokenservice.setToken(token);
         this.router.navigateByUrl('tabs/tab2');

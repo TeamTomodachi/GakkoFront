@@ -1,7 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { ModalController } from '@ionic/angular'
-import { RaidService } from '../../services/raid.service'
-import { Raid } from '../../models/raid'
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-raid',
@@ -29,13 +27,13 @@ export class AddRaidComponent implements OnInit {
       level: this.level,
       private: this.private,
       roomNum: Math.floor(Math.random() * 10000) + 1
-    }
+    };
     this.modalController.dismiss(
       raid
     );
   }
 
-  closeForm(){
+  closeForm() {
     this.modalController.dismiss();
   }
 }

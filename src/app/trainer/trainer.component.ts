@@ -21,7 +21,7 @@ export class TrainerComponent implements OnInit {
 
         /*
             GraphQL query that'll fetch three pokemon using their pokemon
-            names. Each pokemon will include four properties: their name, 
+            names. Each pokemon will include four properties: their name,
             pokedex number, their sprite and their pokemon go model image.
         */
         const threePokeQuery = `
@@ -44,11 +44,11 @@ export class TrainerComponent implements OnInit {
                     spriteImageUrl
                     pogoImageUrl
                 }
-            }      
+            }
         `;
 
         /*
-            Another GraphQL query that'll fetch a single pokemon's name, 
+            Another GraphQL query that'll fetch a single pokemon's name,
             based off the pokedex number.
         */
         const onePokeQuery = `
@@ -56,7 +56,7 @@ export class TrainerComponent implements OnInit {
                 pkmn: pokemon (pokedexNumber: $pkdexNum) {
                     name
                 }
-            }              
+            }
         `;
 
         /*
@@ -65,20 +65,20 @@ export class TrainerComponent implements OnInit {
             text and the alt attribute.
         */
         function fetchPKMNImage({data}) {
-            const pkm1 = document.getElementById("pkmn1Img");
-            const pkm2 = document.getElementById("pkmn2Img");
-            const pkm3 = document.getElementById("pkmn3Img");
+            const pkm1 = document.getElementById('pkmn1Img');
+            const pkm2 = document.getElementById('pkmn2Img');
+            const pkm3 = document.getElementById('pkmn3Img');
 
-            pkm1.setAttribute("src", data.pkmn1.pogoImageUrl);
-            pkm2.setAttribute("src", data.pkmn2.pogoImageUrl);
-            pkm3.setAttribute("src", data.pkmn3.pogoImageUrl);
+            pkm1.setAttribute('src', data.pkmn1.pogoImageUrl);
+            pkm2.setAttribute('src', data.pkmn2.pogoImageUrl);
+            pkm3.setAttribute('src', data.pkmn3.pogoImageUrl);
 
-            document.getElementById("pkmn1Text").innerText = data.pkmn1.name;
-            document.getElementById("pkmn1Text").setAttribute("alt", data.pkmn1.name);
-            document.getElementById("pkmn2Text").innerText = data.pkmn2.name;
-            document.getElementById("pkmn2Text").setAttribute("alt", data.pkmn2.name);
-            document.getElementById("pkmn3Text").innerText = data.pkmn3.name;
-            document.getElementById("pkmn3Text").setAttribute("alt", data.pkmn3.name);
+            document.getElementById('pkmn1Text').innerText = data.pkmn1.name;
+            document.getElementById('pkmn1Text').setAttribute('alt', data.pkmn1.name);
+            document.getElementById('pkmn2Text').innerText = data.pkmn2.name;
+            document.getElementById('pkmn2Text').setAttribute('alt', data.pkmn2.name);
+            document.getElementById('pkmn3Text').innerText = data.pkmn3.name;
+            document.getElementById('pkmn3Text').setAttribute('alt', data.pkmn3.name);
         }
 
         /*
@@ -86,18 +86,18 @@ export class TrainerComponent implements OnInit {
             Returns results.
         */
         async function getOnePoke(pokedexNum, token) {
-            const res = await doQuery(token, onePokeQuery, {pkdexNum: pokedexNum})
+            const res = await doQuery(token, onePokeQuery, {pkdexNum: pokedexNum});
             return res;
         }
 
-        let arrayOfPokes = {
-            id1: "Kadabra",
-            id2: "Articuno",
-            id3: "Rattata"
-        }
+        const arrayOfPokes = {
+            id1: 'Kadabra',
+            id2: 'Articuno',
+            id3: 'Rattata'
+        };
 
         /*
-            Randomly select a number between 1 and 493. The endpoint is 493 because that's 
+            Randomly select a number between 1 and 493. The endpoint is 493 because that's
             how many pokemon are currently available in Pokemon Go, and the pokedex numbers
             do not skip (fortunately).
         */
@@ -112,7 +112,7 @@ export class TrainerComponent implements OnInit {
             return (await getOnePoke(ranNumber(), token)).data.pkmn.name;
         }
 
-        addEventListener("load", async () => {
+        addEventListener('load', async () => {
             doQuery(await this.tokenservice.getToken(), threePokeQuery, arrayOfPokes).then(fetchPKMNImage);
 
             /*
