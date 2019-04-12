@@ -10,7 +10,7 @@ import { Pokemon, Profile, Team } from '../../models';
 export class ProfileEditorComponent implements OnInit {
   private pokemen: Partial<Pokemon>[] = [];
   private teams: Partial<Team>[] = [];
-  private me: Profile = null;
+  public me: Profile = null;
 
   constructor(private tokenService: TokenServiceService) { }
 
@@ -81,5 +81,9 @@ export class ProfileEditorComponent implements OnInit {
     if (!response.ok) {
       throw new Error(`${response.statusText}: ${await response.text()}`);
     }
+  }
+
+  public closeForm() {
+
   }
 }
