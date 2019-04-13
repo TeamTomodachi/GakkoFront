@@ -72,6 +72,11 @@ export class Tab1Page {
     //   }
     }
 
+    onLogoutClick() {
+        this.tokenservice.deleteToken();
+        window.location.reload();
+    }
+
     // async onSubmitUserCreate() {
     //     // Get user/pass
     //     const clientInfo = {

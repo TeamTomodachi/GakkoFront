@@ -40,4 +40,8 @@ export class TokenServiceService {
     localStorage.setItem('pokkenToken', token);
     this.token = token;
   }
+
+  deleteToken() {
+    delete localStorage.pokkenToken;
+  }
 }
