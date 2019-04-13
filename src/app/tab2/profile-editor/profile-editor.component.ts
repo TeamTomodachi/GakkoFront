@@ -40,12 +40,16 @@ export class ProfileEditorComponent implements OnInit {
                 }
             }
         `);
+        const token = await this.tokenService.getToken();
+        if (!token) {
+            return;
+        }
         // get current user
         const response = await fetch('/api-gateway/api/graphql', {
             method: 'POST',
             body: JSON.stringify({ query }),
             headers: {
-                token: await this.tokenService.getToken(),
+                token,
                 'Content-Type': 'application/json',
             },
         });
@@ -81,6 +85,10 @@ export class ProfileEditorComponent implements OnInit {
             featuredPokemon2: this.profile.featuredPokemen[1].id,
             featuredPokemon3: this.profile.featuredPokemen[2].id,
         };
+        const token = await this.tokenService.getToken();
+        if (!token) {
+            return;
+        }
 
         const response = await fetch('/api-gateway/api/graphql', {
             method: 'POST',
@@ -89,7 +97,7 @@ export class ProfileEditorComponent implements OnInit {
                 variables: { profile },
             }),
             headers: {
-                token: await this.tokenService.getToken(),
+                token,
                 'Content-Type': 'application/json',
             },
         });

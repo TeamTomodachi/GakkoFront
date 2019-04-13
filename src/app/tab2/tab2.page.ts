@@ -5,6 +5,7 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
 import { Profile } from 'src/app/models';
 import { doQuery } from 'src/doQuery';
 import { withFragment, ProfileData } from 'src/fragments';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'app-tab2',
@@ -16,11 +17,28 @@ export class Tab2Page implements OnInit {
     public profile: Profile = null;
 
     constructor(private tokenService: TokenServiceService,
-        private modalController: ModalController) {}
+        private modalController: ModalController,
+        private router: Router) {
+            router.events.subscribe((e) => {
+                if (e instanceof NavigationEnd
+                    && (
+                        e.url.includes('tabs/tab2')
+                        || e.urlAfterRedirects.includes('tabs/tab2')
+                    )
+                    && !this.profile
+                ) {
+                    this.ngOnInit();
+                }
+            });
+        }
 
     async ngOnInit() {
+        const token = await this.tokenService.getToken();
+        if (!token) {
+            return;
+        }
         const { data } = await doQuery(
-            await this.tokenService.getToken(),
+            token,
             withFragment(ProfileData, `
             query {
                 me {
