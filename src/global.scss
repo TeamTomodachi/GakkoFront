@@ -16,30 +16,15 @@
     margin-left: auto;
     margin-right: auto;
 }
-// .sc-ion-modal-md {
-//     width: 95%;
-//     height: 50%;
-//     margin-left: auto;
-//     margin-right: auto;
-//     border-radius: 5%;
-//     box-shadow: 5px 10px 8px #888888;
-// }
-// .modal-wrapper {
-//     width: 95%;
-//     height: 50%;
-//     margin-left: auto;
-//     margin-right: auto;
-//     border-radius: 5%;
-//     box-shadow: 5px 10px 8px #888888;
-// }
-// .modal-wrapper-md {
-//     width: 95%;
-//     height: 50%;
-//     margin-left: auto;
-//     margin-right: auto;
-//     border-radius: 5%;
-//     box-shadow: 5px 10px 8px #888888;
-// }
+
+.editProfile .modal-wrapper {
+    width: 95%;
+    min-height: 40%;
+    max-height: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 :root {
 	--ion-color-primary: #225a7d;
 	--ion-color-primary-rgb: 34,90,125;
