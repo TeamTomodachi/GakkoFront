@@ -1,9 +1,10 @@
-import {
-    Component, OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { TokenServiceService } from '../services/token-service.service';
 import { ProfileEditorComponent } from './profile-editor/profile-editor.component';
+import { Profile } from 'src/app/models';
+import { doQuery } from 'src/doQuery';
+import { withFragment, ProfileData } from 'src/fragments';
 
 @Component({
     selector: 'app-tab2',
@@ -12,19 +13,37 @@ import { ProfileEditorComponent } from './profile-editor/profile-editor.componen
 })
 
 export class Tab2Page implements OnInit {
-    constructor(private tokenService: TokenServiceService,
-        private modalController: ModalController) {
+    public profile: Profile = null;
 
-    }
-    ngOnInit() {
-        console.log(this.tokenService.getToken());
+    constructor(private tokenService: TokenServiceService,
+        private modalController: ModalController) {}
+
+    async ngOnInit() {
+        const { data } = await doQuery(
+            await this.tokenService.getToken(),
+            withFragment(ProfileData, `
+            query {
+                me {
+                    ...ProfileData
+                }
+            }
+            `),
+        );
+        this.profile = data.me;
     }
 
     async openProfileEditor() {
         const modal = await this.modalController.create({
             component: ProfileEditorComponent,
             cssClass: 'editProfile',
+            componentProps: {
+                profile: this.profile,
+            },
         });
         await modal.present();
+        const { data } = await modal.onDidDismiss();
+        if (data) {
+            this.profile = data;
+        }
     }
 }

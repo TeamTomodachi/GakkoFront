@@ -3,15 +3,15 @@
   <ion-list>
     <ion-item>
       <ion-label>Display name</ion-label>
-      <ion-input type="text" [(ngModel)]="me.username" name="username"></ion-input>
+      <ion-input type="text" [(ngModel)]="profile.username" name="username"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Trainer Code</ion-label>
-      <ion-input pattern="\d{4} \d{4} \d{4}" type="text" [(ngModel)]="me.trainerCode" name="trainerCode"></ion-input>
+      <ion-input pattern="\d{4} \d{4} \d{4}" type="text" [(ngModel)]="profile.trainerCode" name="trainerCode"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Gender</ion-label>
-      <ion-select [(ngModel)]="me.gender" name="gender">
+      <ion-select [(ngModel)]="profile.gender" name="gender">
         <ion-select-option [value]="+0">
           Prefer not to say
         </ion-select-option>
@@ -28,7 +28,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Team</ion-label>
-      <ion-select [(ngModel)]="me.team.id" name="teamId">
+      <ion-select [(ngModel)]="profile.team.id" name="teamId">
         <ion-select-option *ngFor="let team of teams" value="{{team.id}}">
           {{team.name}}
         </ion-select-option>
@@ -36,7 +36,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Pokemon 1</ion-label>
-      <ion-select [(ngModel)]="me.featuredPokemen[0].id" name="poke1name">
+      <ion-select [(ngModel)]="profile.featuredPokemen[0].id" name="poke1name">
         <ion-select-option *ngFor="let pokemon of pokemen" value="{{pokemon.id}}">
           {{pokemon.name}}
         </ion-select-option>
@@ -44,7 +44,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Pokemon 2</ion-label>
-      <ion-select [(ngModel)]="me.featuredPokemen[1].id" name="poke2name">
+      <ion-select [(ngModel)]="profile.featuredPokemen[1].id" name="poke2name">
         <ion-select-option *ngFor="let pokemon of pokemen" value="{{pokemon.id}}">
           {{pokemon.name}}
         </ion-select-option>
@@ -52,7 +52,7 @@
     </ion-item>
     <ion-item>
       <ion-label>Pokemon 3</ion-label>
-      <ion-select [(ngModel)]="me.featuredPokemen[2].id" name="poke3name">
+      <ion-select [(ngModel)]="profile.featuredPokemen[2].id" name="poke3name">
         <ion-select-option *ngFor="let pokemon of pokemen" value="{{pokemon.id}}">
           {{pokemon.name}}
         </ion-select-option>

@@ -1,23 +1,13 @@
-<ion-grid>
+<ion-grid *ngIf="profile !== null">
 
     <ion-row id="trainerSection">
         <ion-col>
             <ion-row>
                 <div id="teamBg"></div>
-                <div class="pkmn" id="pkmn1">
-                    <img id="pkmn1Img"
-                        src="https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_025_00.png"
-                        alt="Pikachu">
-                </div>
-                <div class="pkmn" id="pkmn2">
-                    <img id="pkmn2Img"
-                        src="https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_146_00.png"
-                        alt="Moltres">
-                </div>
-                <div class="pkmn" id="pkmn3">
-                    <img id="pkmn3Img"
-                        src="https://raw.githubusercontent.com/ZeChrales/PogoAssets/master/pokemon_icons/pokemon_icon_246_00.png"
-                        alt="Larvitar">
+                <div *ngFor="let pokemon of profile.featuredPokemen; index as i" class="pkmn" [attr.id]="'pkmn' + i">
+                    <img [attr.id]="'pkmn' + i + 'Img'"
+                        src="{{pokemon.pogoImageUrl}}"
+                        alt="{{pokemon.name}}">
                 </div>
                 <div id="trainerModel">
                     <img src="https://raw.githubusercontent.com/TeamTomodachi/GakkoDocs/master/Development/Frontend/Assets/trainer_m.png"
@@ -30,22 +20,16 @@
             <ion-row>
                 <ion-col>Trainer</ion-col>
             </ion-row>
-            <ion-row>
-                <ion-col size="3">&</ion-col>
-                <ion-col id="pkmn1Text">Larvitar</ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col push="3" id="pkmn2Text">Moltres</ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col push="3" id="pkmn3Text">Pikachu</ion-col>
+            <ion-row *ngFor="let pokemon of profile.featuredPokemen; index as i">
+                <ion-col *ngIf="i === 0" size="3">&amp;</ion-col>
+                <ion-col [attr.id]="'pkmn' + i + 'Text'">{{pokemon.name}}</ion-col>
             </ion-row>
         </div>
 
     </ion-row>
 
     <ion-row id="achievementSection">
-        <ion-col>40<br>LEVEL</ion-col>
+        <ion-col>{{profile.level}}<br>LEVEL</ion-col>
         <ion-col>
             <ion-icon size="large" name="bicycle"></ion-icon>
         </ion-col>
