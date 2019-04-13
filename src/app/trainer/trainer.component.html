@@ -3,9 +3,9 @@
     <ion-row id="trainerSection">
         <ion-col>
             <ion-row>
-                <div id="teamBg"></div>
-                <div *ngFor="let pokemon of profile.featuredPokemen; index as i" class="pkmn" [attr.id]="'pkmn' + i">
-                    <img [attr.id]="'pkmn' + i + 'Img'"
+                <div id="teamBg" [style.background-image]="'url(' + getTeamImage() + ')'"></div>
+                <div *ngFor="let pokemon of profile.featuredPokemen; index as i" class="pkmn" [attr.id]="'pkmn' + (i + 1)">
+                    <img [attr.id]="'pkmn' + (i + 1) + 'Img'"
                         src="{{pokemon.pogoImageUrl}}"
                         alt="{{pokemon.name}}">
                 </div>
@@ -22,7 +22,7 @@
             </ion-row>
             <ion-row *ngFor="let pokemon of profile.featuredPokemen; index as i">
                 <ion-col *ngIf="i === 0" size="3">&amp;</ion-col>
-                <ion-col [attr.id]="'pkmn' + i + 'Text'">{{pokemon.name}}</ion-col>
+                <ion-col [attr.id]="'pkmn' + (i + 1) + 'Text'">{{pokemon.name}}</ion-col>
             </ion-row>
         </div>
 

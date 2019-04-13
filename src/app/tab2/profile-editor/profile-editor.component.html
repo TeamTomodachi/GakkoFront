@@ -10,6 +10,10 @@
       <ion-input pattern="\d{4} \d{4} \d{4}" type="text" [(ngModel)]="profile.trainerCode" name="trainerCode"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label>Level</ion-label>
+      <ion-input type="number" max="40" min="1" step="1" [(ngModel)]="profile.level" name="level"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label>Gender</ion-label>
       <ion-select [(ngModel)]="profile.gender" name="gender">
         <ion-select-option [value]="+0">
@@ -59,7 +63,7 @@
       </ion-select>
     </ion-item>
 
-    <ion-button color="primary" type="submit" value="Submit" class="btn" name="submit">Submit</ion-button>
-    <ion-button color="danger" class="btn" name="cancel" (click)="closeForm()">Cancel</ion-button>
+    <ion-button expand="block" size="large" color="primary" type="submit" value="Submit" class="btn" name="submit">Submit</ion-button>
+    <ion-button expand="block" color="light" class="btn" name="cancel" (click)="closeForm()">Cancel</ion-button>
   </ion-list>
 </form>

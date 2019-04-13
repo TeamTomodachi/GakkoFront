@@ -8,9 +8,11 @@ export const ProfileData: Fragment = `
     fragment ProfileData on Profile {
         username
         trainerCode
+        level
         gender
         team {
             id
+            name
         }
         featuredPokemen {
             id
