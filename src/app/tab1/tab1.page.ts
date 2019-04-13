@@ -57,7 +57,7 @@ export class Tab1Page {
         // Get user/pass
         const clientInfo = {
             'username': this.user,
-            //'email': this.email,
+            // 'email': this.email,
             'password': this.pass,
         };
         // Get Token from /auth/api/authenticate
