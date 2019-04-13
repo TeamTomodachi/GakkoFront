@@ -92,7 +92,6 @@ constructor(public rs: RaidService,
               const selectedRaid = this.rs.getRaidByRoomNum(data.roomNum, this.raids);
               this.enterRoom(selectedRaid);
             } else {
-             console.log(this.raids.map(raid => raid.roomNum));
              this.notifyInvalidRaid();
             }
           }
@@ -161,7 +160,7 @@ constructor(public rs: RaidService,
   // add a new raid/marker for any newly created raid. Hopefully this can be properly merged with above in the future.
   addNewMarker(raid) {
     const newRaid: Raid = this.rs.addRaid(this.middle, raid);
-    this.raids.push(newRaid);
+    //this.raids.push(newRaid);
     this.mapElement.addNewMarker(newRaid);
   }
 }

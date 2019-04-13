@@ -7,6 +7,7 @@ import {
 } from '../services/token-service.service';
 
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
 
 @Component({
     selector: 'app-tab4',
@@ -21,7 +22,8 @@ export class Tab4Page {
 
     constructor(
         private tokenservice: TokenServiceService,
-        private router: Router
+        private router: Router,
+        public modalController: ModalController
     ) {}
 
     async onSubmit() {
@@ -36,6 +38,7 @@ export class Tab4Page {
 
         this.tokenservice.setToken(token);
         this.router.navigateByUrl('tabs/tab2');
+        this.modalController.dismiss();
     }
 
     async createAccount(info) {
@@ -50,7 +53,7 @@ export class Tab4Page {
         if (!response.ok) {
             throw new Error(`${response.statusText}: ${await response.text()}`);
         }
-
+        
         return response.json();
     }
 }
