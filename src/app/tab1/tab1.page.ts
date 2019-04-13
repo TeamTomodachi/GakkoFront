@@ -7,6 +7,8 @@ import {
 } from '../services/token-service.service';
 
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { Tab4Page } from '../tab4/tab4.page';
 
 @Component({
     selector: 'app-tab1',
@@ -20,7 +22,8 @@ export class Tab1Page {
 
     constructor(
         private tokenservice: TokenServiceService,
-        private router: Router
+        private router: Router,
+        public modalController: ModalController
     ) {}
 
     async onSubmit() {
@@ -54,32 +57,48 @@ export class Tab1Page {
     }
 
     async onSubmitUserCreate() {
-        // Get user/pass
-        const clientInfo = {
-            'username': this.user,
-            // 'email': this.email,
-            'password': this.pass,
-        };
-        // Get Token from /auth/api/authenticate
-        const { token } = await this.createAccount(clientInfo);
-
-        this.tokenservice.setToken(token);
-        this.router.navigateByUrl('tabs/tab2');
+    // set up modal
+     const modal = await this.modalController.create({
+        component: Tab4Page,
+        cssClass: 'createAccount'
+          });
+      await modal.present();
+      const { data } = await modal.onDidDismiss();
+  
+    //   if (data) {
+    //     // on successful data return, create a new raid/marker and notify user via toast notification.
+    //     this.addNewMarker(data);
+    //     this.notifyRoomCreated(data);
+    //   }
     }
 
-    async createAccount(info) {
-        const response = await fetch('/auth/api/UserAccount', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(info),
-        });
+    // async onSubmitUserCreate() {
+    //     // Get user/pass
+    //     const clientInfo = {
+    //         'username': this.user,
+    //         // 'email': this.email,
+    //         'password': this.pass,
+    //     };
+    //     // Get Token from /auth/api/authenticate
+    //     const { token } = await this.createAccount(clientInfo);
 
-        if (!response.ok) {
-            throw new Error(`${response.statusText}: ${await response.text()}`);
-        }
+    //     this.tokenservice.setToken(token);
+    //     this.router.navigateByUrl('tabs/tab2');
+    // }
 
-        return response.json();
-    }
+    // async createAccount(info) {
+    //     const response = await fetch('/auth/api/UserAccount', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(info),
+    //     });
+
+    //     if (!response.ok) {
+    //         throw new Error(`${response.statusText}: ${await response.text()}`);
+    //     }
+
+    //     return response.json();
+    // }
 }

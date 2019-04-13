@@ -1,7 +1,7 @@
 ion-content {
     background-color: #252424;
-    width: 100vw;
-    height: 100vh;
+    // width: 100vw;
+    // height: 100vh;
 
     border: 1px solid black;
 }
@@ -20,7 +20,7 @@ ion-content {
     border: 1px solid black;
 
     > ion-row {
-        width: 80%;
+        width: 100%;
         border: 1px solid black;
     }
 
