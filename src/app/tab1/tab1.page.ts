@@ -18,22 +18,31 @@ import { Tab4Page } from '../tab4/tab4.page';
 })
 
 export class Tab1Page {
+    loggedIn: boolean;
+
     user: string;
     pass: string;
+    rememberLogin: boolean;
 
     constructor(
         private tokenService: TokenServiceService,
         private router: Router,
         private alertController: AlertController,
         public modalController: ModalController
-    ) {}
+    ) {
+        this.loggedIn = localStorage.pokkenToken !== undefined;
+    }
+
+    ngOnInit(){
+        this.loggedIn = localStorage.pokkenToken !== undefined;
+    }
 
     async onSubmit() {
         // Get user/pass
         const clientInfo = {
             'username': this.user,
             'password': this.pass,
-            'rememberLogin': true,
+            'rememberLogin': this.rememberLogin,
         };
         // Get Token from /auth/api/authenticate
         const { token } = await this.authenticate(clientInfo);

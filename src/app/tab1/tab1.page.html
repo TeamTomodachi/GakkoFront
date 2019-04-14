@@ -9,7 +9,13 @@
 <ion-content>
     <ion-grid id="flexCapabilities">
         
-        <ion-row>
+        <ion-row *ngIf="loggedIn; then loggedInView else loggedOutView">
+        </ion-row>
+
+        <ng-template #loggedInView> !-- Remove this if not working -->
+                <a class="logoutLink" (click)="onLogoutClick()">Signout</a>
+        </ng-template>
+        <ng-template #loggedOutView> <!-- Put back into ion-row -->
             <ion-col>
                 <ion-row id="loginTitle">
                     <ion-col>POGO Gakko Login</ion-col>
@@ -29,13 +35,19 @@
                     </ion-row>
                     <ion-row>
                         <ion-col>
+                            <ion-label position="stacked">Remember Login</ion-label>
+                            <ion-checkbox [(ngModel)]="rememberLogin" name="rememberLogin" checked="true" required="true"></ion-checkbox>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col>
                             <ion-button type="submit" expand="full">Login</ion-button>
                         </ion-col>
                     </ion-row>
                 </form>
             </ion-col>
-        </ion-row>
-        <a class="signUpLink" (click)="onSubmitUserCreate()">New User? Sign up</a>
-        <a class="logoutLink" (click)="onLogoutClick()">Signout</a>
+            <a class="signUpLink" (click)="onSubmitUserCreate()">New User? Sign up</a> <!-- Move down just under the exit tax of ion-row if problem -->
+        </ng-template>
+
     </ion-grid>
 </ion-content>
