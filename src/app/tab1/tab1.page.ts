@@ -8,6 +8,7 @@ import {
 
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 import { Tab4Page } from '../tab4/tab4.page';
 
 @Component({
@@ -21,8 +22,9 @@ export class Tab1Page {
     pass: string;
 
     constructor(
-        private tokenservice: TokenServiceService,
+        private tokenService: TokenServiceService,
         private router: Router,
+        private alertController: AlertController,
         public modalController: ModalController
     ) {}
 
@@ -36,7 +38,7 @@ export class Tab1Page {
         // Get Token from /auth/api/authenticate
         const { token } = await this.authenticate(clientInfo);
 
-        this.tokenservice.setToken(token);
+        this.tokenService.setToken(token);
         this.router.navigateByUrl('tabs/tab2');
     }
 
@@ -66,8 +68,29 @@ export class Tab1Page {
       const { data } = await modal.onDidDismiss();
     }
 
-    onLogoutClick() {
-        this.tokenservice.deleteToken();
-        window.location.reload();
+    async onLogoutClick() {
+        const alert = await this.alertController.create({
+            header: 'Logout?',
+            message: 'Are you sure you want to logout of the application?',
+            buttons: [
+                { 
+                    text: 'Yes',
+                    role: 'logout',
+                    handler: () => {
+                        console.log('User has logged out');
+                        this.tokenService.deleteToken();
+                        window.location.reload();
+                    },
+                },
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('User chose not to logout');
+                    },
+                } 
+            ]
+          });
+      
+          await alert.present();
     }
 }
