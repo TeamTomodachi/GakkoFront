@@ -6,6 +6,7 @@ import { Profile } from 'src/app/models';
 import { doQuery } from 'src/doQuery';
 import { withFragment, ProfileData } from 'src/fragments';
 import { Router, NavigationEnd } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
     selector: 'app-tab2',
@@ -18,6 +19,7 @@ export class Tab2Page implements OnInit {
 
     constructor(private tokenService: TokenServiceService,
         private modalController: ModalController,
+        private alertController: AlertController,
         private router: Router) {
             router.events.subscribe((e) => {
                 if (e instanceof NavigationEnd
@@ -63,5 +65,31 @@ export class Tab2Page implements OnInit {
         if (data) {
             this.profile = data;
         }
+    }
+
+    async onLogoutClick() {
+        const alert = await this.alertController.create({
+            title: 'Logout?',
+            message: 'Are you sure you want to logout of the application?',
+            buttons: [
+                { 
+                    text: 'Yes',
+                    role: 'logout',
+                    handler: () => {
+                        console.log('User has logged out');
+                        this.tokenService.deleteToken();
+                        window.location.reload();
+                    },
+                },
+                {
+                    text: 'No',
+                    handler: () => {
+                        console.log('User chose not to logout');
+                    },
+                } 
+            ]
+          });
+      
+          await alert.present();
     }
 }
