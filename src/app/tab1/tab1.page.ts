@@ -22,7 +22,7 @@ export class Tab1Page {
 
     user: string;
     pass: string;
-    rememberLogin: boolean;
+    rememberLogin: boolean = true;
 
     constructor(
         private tokenService: TokenServiceService,
