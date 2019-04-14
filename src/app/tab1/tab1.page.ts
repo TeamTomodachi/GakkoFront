@@ -64,46 +64,10 @@ export class Tab1Page {
           });
       await modal.present();
       const { data } = await modal.onDidDismiss();
-  
-    //   if (data) {
-    //     // on successful data return, create a new raid/marker and notify user via toast notification.
-    //     this.addNewMarker(data);
-    //     this.notifyRoomCreated(data);
-    //   }
     }
 
     onLogoutClick() {
         this.tokenservice.deleteToken();
         window.location.reload();
     }
-
-    // async onSubmitUserCreate() {
-    //     // Get user/pass
-    //     const clientInfo = {
-    //         'username': this.user,
-    //         // 'email': this.email,
-    //         'password': this.pass,
-    //     };
-    //     // Get Token from /auth/api/authenticate
-    //     const { token } = await this.createAccount(clientInfo);
-
-    //     this.tokenservice.setToken(token);
-    //     this.router.navigateByUrl('tabs/tab2');
-    // }
-
-    // async createAccount(info) {
-    //     const response = await fetch('/auth/api/UserAccount', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(info),
-    //     });
-
-    //     if (!response.ok) {
-    //         throw new Error(`${response.statusText}: ${await response.text()}`);
-    //     }
-
-    //     return response.json();
-    // }
 }
