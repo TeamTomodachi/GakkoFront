@@ -69,7 +69,7 @@ export class Tab2Page implements OnInit {
 
     async onLogoutClick() {
         const alert = await this.alertController.create({
-            title: 'Logout?',
+            header: 'Logout?',
             message: 'Are you sure you want to logout of the application?',
             buttons: [
                 { 
