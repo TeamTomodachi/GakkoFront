@@ -16,45 +16,42 @@
             <a class="logoutLink" (click)="onLogoutClick()">Signout</a>
         </ng-template>
         <ng-template #loggedOutView>
-            <!-- Put back into ion-row -->
             <ion-row>
-            <ion-col>
-                <ion-row id="loginTitle">
-                    <ion-col>POGO Gakko Login</ion-col>
-                </ion-row>
-                <form (ngSubmit)="onSubmit()">
-                    <ion-row>
-                        <ion-col>
-                            <ion-label position="stacked">Username/Email</ion-label>
-                            <ion-input [(ngModel)]="user" name="user" placeholder="Username" type="text" autofocus="on"
-                                required="true"></ion-input>
-                        </ion-col>
+                <ion-col>
+                    <ion-row id="loginTitle">
+                        <ion-col>POGO Gakko Login</ion-col>
                     </ion-row>
-                    <ion-row>
-                        <ion-col>
-                            <ion-label position="stacked">Password</ion-label>
-                            <ion-input [(ngModel)]="pass" name="pass" placeholder="Password" type="password"
-                                required="true"></ion-input>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col>
-                            <ion-label position="stacked">Remember Login</ion-label>
-                            <ion-checkbox id="rememberLoginButton" [(ngModel)]="rememberLogin" name="rememberLogin"
-                                required="true"></ion-checkbox>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col>
-                            <ion-button type="submit" expand="full">Login</ion-button>
-                        </ion-col>
-                    </ion-row>
-                </form>
-            </ion-col>
-        </ion-row>
+                    <form (ngSubmit)="onSubmit()">
+                        <ion-row>
+                            <ion-col>
+                                <ion-label position="stacked">Username/Email</ion-label>
+                                <ion-input [(ngModel)]="user" name="user" placeholder="Username" type="text"
+                                    autofocus="on" required="true"></ion-input>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-label position="stacked">Password</ion-label>
+                                <ion-input [(ngModel)]="pass" name="pass" placeholder="Password" type="password"
+                                    required="true"></ion-input>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-label position="stacked">Remember Login</ion-label>
+                                <ion-checkbox id="rememberLoginButton" [(ngModel)]="rememberLogin" name="rememberLogin"
+                                    required="true"></ion-checkbox>
+                            </ion-col>
+                        </ion-row>
+                        <ion-row>
+                            <ion-col>
+                                <ion-button type="submit" expand="full">Login</ion-button>
+                            </ion-col>
+                        </ion-row>
+                    </form>
+                </ion-col>
+            </ion-row>
             <a class="signUpLink" (click)="onSubmitUserCreate()">New User? Sign up</a>
-            <!-- Move down just under the exit tax of ion-row if problem -->
         </ng-template>
-
     </ion-grid>
 </ion-content>
