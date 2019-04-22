@@ -37,6 +37,7 @@ export class Tab4Page {
         const { token } = await this.createAccount(clientInfo);
 
         this.tokenservice.setToken(token);
+        await new Promise(r => setTimeout(r, 1000));
         this.router.navigateByUrl('tabs/tab2');
         this.modalController.dismiss();
     }
