@@ -1,11 +1,5 @@
-import {
-    Component
-} from '@angular/core';
-
-import {
-    TokenServiceService
-} from '../services/token-service.service';
-
+import { Component } from '@angular/core';
+import { TokenServiceService } from '../services/token-service.service';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
@@ -19,7 +13,6 @@ import { Tab4Page } from '../tab4/tab4.page';
 
 export class Tab1Page {
     loggedIn: boolean;
-
     user: string;
     pass: string;
     rememberLogin: boolean = true;
@@ -68,7 +61,7 @@ export class Tab1Page {
     }
 
     async onSubmitUserCreate() {
-    // set up modal
+    // Set up Modal
      const modal = await this.modalController.create({
         component: Tab4Page,
         cssClass: 'createAccount'

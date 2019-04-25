@@ -1,8 +1,4 @@
-import {
-    Component,
-    Input,
-} from '@angular/core';
-
+import { Component, Input, } from '@angular/core';
 import { Profile } from 'src/app/models/profile';
 
 @Component({

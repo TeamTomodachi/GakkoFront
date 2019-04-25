@@ -36,6 +36,11 @@ export class Tab2Page implements OnInit {
 
     async ngOnInit() {
         const token = await this.tokenService.getToken();
+        /*
+            If the token does not exist, this will knock you back to tab1. 
+            Otherwise, it'll collect the profile info from the token and 
+            display it.
+        */
         if (!token) {
             return;
         }

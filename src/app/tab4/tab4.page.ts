@@ -1,11 +1,5 @@
-import {
-    Component
-} from '@angular/core';
-
-import {
-    TokenServiceService
-} from '../services/token-service.service';
-
+import { Component } from '@angular/core';
+import { TokenServiceService } from '../services/token-service.service';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 
@@ -43,6 +37,10 @@ export class Tab4Page {
     }
 
     async createAccount(info) {
+        /*
+            Sends the parameter 'info' to the /auth/api/UserAccount endpoint 
+            to create an account. Gets a JSON object in return if successful.
+        */
         const response = await fetch('/auth/api/UserAccount', {
             method: 'POST',
             headers: {
